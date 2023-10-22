@@ -1,0 +1,18 @@
+{
+  "mobile": {
+    "minWidth": 320,
+    "mediaQuery": "(min-width: 320px)"
+  },
+  "tablet": {
+    "minWidth": 640,
+    "mediaQuery": "(min-width: 640px)"
+  },
+  "laptop": {
+    "minWidth": 1024,
+    "mediaQuery": "(min-width: 1024px)"
+  },
+  "desktop": {
+    "minWidth": 1280,
+    "mediaQuery": "(min-width: 1280px)"
+  }
+}

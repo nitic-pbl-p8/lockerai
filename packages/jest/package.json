@@ -1,0 +1,24 @@
+{
+  "name": "@lockerai/jest",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint './**/{*.*js,*.*ts}'",
+    "lint:fix": "eslint './**/{*.*js,*.*ts}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "@lockerai/prettier": "workspace:*",
+    "@lockerai/tsconfig": "workspace:*",
+    "@types/jest": "29.5.6",
+    "eslint-config-lockerai-esm": "workspace:*",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0",
+    "next": "13.5.6",
+    "ts-jest": "29.1.1"
+  }
+}

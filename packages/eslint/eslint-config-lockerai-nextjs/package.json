@@ -1,0 +1,17 @@
+{
+  "name": "eslint-config-lockerai-nextjs",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "main": "index.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "lint": "eslint './**/*.*js'",
+    "lint:fix": "eslint './**/*.*js' --fix"
+  },
+  "devDependencies": {
+    "eslint-config-lockerai-base": "workspace:*",
+    "eslint-config-lockerai-react": "workspace:*"
+  }
+}

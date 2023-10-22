@@ -1,0 +1,23 @@
+{
+  "name": "@lockerai/postcss",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "main": "index.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "lint": "eslint './**/{*.json,*.*js,*.*ts}'",
+    "lint:fix": "eslint './**/{*.json,*.*js,*.*ts}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "@lockerai/prettier": "workspace:*",
+    "autoprefixer": "10.4.16",
+    "eslint-config-lockerai-base": "workspace:*",
+    "postcss": "8.4.31",
+    "postcss-import": "15.1.0",
+    "tailwindcss": "3.3.3"
+  }
+}

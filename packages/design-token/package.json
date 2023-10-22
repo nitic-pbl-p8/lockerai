@@ -1,0 +1,23 @@
+{
+  "name": "@lockerai/design-token",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint './**/{*.*js,*.*ts}'",
+    "lint:fix": "eslint './**/{*.*js,*.*ts}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write .",
+    "test": "jest --silent=false --verbose false --passWithNoTests"
+  },
+  "devDependencies": {
+    "@lockerai/jest": "workspace:*",
+    "@lockerai/prettier": "workspace:*",
+    "@lockerai/stylelint": "workspace:*",
+    "@lockerai/tsconfig": "workspace:*",
+    "@lockerai/type": "workspace:*",
+    "eslint-config-lockerai-esm": "workspace:*"
+  }
+}

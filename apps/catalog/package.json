@@ -1,0 +1,49 @@
+{
+  "name": "@lockerai/catalog",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "module": "nodenext",
+  "scripts": {
+    "lint": "eslint './**/{*.*js,*.*ts,*.*tsx}'",
+    "lint:fix": "eslint './**/{*.*js,*.*ts,*.*tsx}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write .",
+    "style": "stylelint ./{,.}**/*.{css,scss}",
+    "style:fix": "stylelint ./{,.}**/*.{css,scss} --fix",
+    "test": "jest --silent=false --verbose false --passWithNoTests",
+    "sb": "storybook dev --port 6006",
+    "sb:build": "storybook build -o ./.storybook/static",
+    "chromatic": "pnpx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN"
+  },
+  "dependencies": {
+    "@lockerai/core": "workspace:*",
+    "@lockerai/design-token": "workspace:*",
+    "@lockerai/tailwind": "workspace:*",
+    "dotenv": "16.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@lockerai/jest": "workspace:*",
+    "@lockerai/postcss": "workspace:*",
+    "@lockerai/prettier": "workspace:*",
+    "@lockerai/stylelint": "workspace:*",
+    "@lockerai/tsconfig": "workspace:*",
+    "@storybook/addon-a11y": "7.5.1",
+    "@storybook/addon-essentials": "7.5.1",
+    "@storybook/addon-styling": "1.3.7",
+    "@storybook/addon-viewport": "7.5.1",
+    "@storybook/addons": "7.5.1",
+    "@storybook/nextjs": "7.5.1",
+    "@storybook/react": "7.5.1",
+    "@storybook/theming": "7.5.1",
+    "@types/react": "18.2.31",
+    "@types/react-dom": "18.2.14",
+    "chromatic": "7.4.0",
+    "eslint-config-lockerai-react": "workspace:*",
+    "storybook": "7.5.1"
+  }
+}

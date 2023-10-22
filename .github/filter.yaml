@@ -1,0 +1,55 @@
+api:
+  - .github/filter.yaml
+  - .github/workflows/api-*.yaml
+  - apps/api/**/*
+  - packages/**/*
+  - .npmrc
+  - package.json
+  - pnpm-workspace.yaml
+  - turbo.json
+
+app:
+  - .github/filter.yaml
+  - .github/workflows/app-*.yaml
+  - apps/**/*
+  - packages/**/*
+  - .npmrc
+  - package.json
+  - pnpm-workspace.yaml
+  - turbo.json
+
+catalog:
+  - .github/filter.yaml
+  - .github/workflows/catalog-*.yaml
+  - apps/catalog/**/*
+  - apps/website/**/*
+  - packages/**/*
+  - .npmrc
+  - package.json
+  - pnpm-workspace.yaml
+  - turbo.json
+
+db:
+  - .github/filter.yaml
+  - .github/workflows/db-*.yaml
+  - apps/api/src/infra/drizzle/schema/**/*.ts
+
+graphql:
+  - .github/filter.yaml
+  - .github/workflows/graphql-*.yaml
+  - apps/api/**/*
+  - packages/**/*
+  - .npmrc
+  - package.json
+  - pnpm-workspace.yaml
+  - turbo.json
+
+website:
+  - .github/filter.yaml
+  - .github/workflows/website-*.yaml
+  - apps/website/**/*
+  - packages/**/*
+  - .npmrc
+  - package.json
+  - pnpm-workspace.yaml
+  - turbo.json

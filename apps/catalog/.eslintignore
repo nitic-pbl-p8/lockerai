@@ -1,0 +1,5 @@
+!.storybook/
+.storybook/static/
+coverage/
+generated/
+node_modules/

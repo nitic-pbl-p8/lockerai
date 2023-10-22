@@ -1,0 +1,28 @@
+{
+  "name": "@lockerai/type",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "module": "nodenext",
+  "main": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint './**/{*.*js,*.*ts,*.*tsx}'",
+    "lint:fix": "eslint './**/{*.*js,*.*ts,*.*tsx}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write .",
+    "test": "jest --silent=false --verbose false --passWithNoTests"
+  },
+  "dependencies": {
+    "dotenv": "16.3.1"
+  },
+  "devDependencies": {
+    "@lockerai/jest": "workspace:*",
+    "@lockerai/prettier": "workspace:*",
+    "@lockerai/tsconfig": "workspace:*",
+    "add": "2.0.6",
+    "eslint-config-lockerai-esm": "workspace:*",
+    "ts-essentials": "9.4.1"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@lockerai/tailwind",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint './**/{*.*js,*.*ts}'",
+    "lint:fix": "eslint './**/{*.*js,*.*ts}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write .",
+    "test": "jest --silent=false --verbose false --passWithNoTests"
+  },
+  "dependencies": {
+    "clsx": "2.0.0",
+    "dotenv": "16.3.1",
+    "tailwind-merge": "1.14.0",
+    "tailwind-variants": "0.1.14"
+  },
+  "devDependencies": {
+    "@lockerai/design-token": "workspace:*",
+    "@lockerai/jest": "workspace:*",
+    "@lockerai/prettier": "workspace:*",
+    "@lockerai/stylelint": "workspace:*",
+    "@lockerai/tsconfig": "workspace:*",
+    "@lockerai/type": "workspace:*",
+    "add": "2.0.6",
+    "autoprefixer": "10.4.16",
+    "eslint-config-lockerai-esm": "workspace:*",
+    "mini-svg-data-uri": "1.4.4",
+    "postcss": "8.4.31",
+    "postcss-import": "15.1.0",
+    "tailwindcss": "3.3.3",
+    "tailwindcss-animate": "1.0.7",
+    "tw-colors": "3.0.3"
+  }
+}

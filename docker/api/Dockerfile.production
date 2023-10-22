@@ -1,0 +1,34 @@
+ARG PORT
+ARG NODE_VERSION=18
+ARG TURBO_TEAM
+ARG TURBO_TOKEN
+
+FROM alpine:3 as alpine
+
+FROM node:${NODE_VERSION}-slim AS builder
+ENV TURBO_TEAM=${TURBO_TEAM}
+ENV TURBO_TOKEN=${TURBO_TOKEN}
+
+WORKDIR /lockerai/
+
+RUN yarn global add pnpm
+
+COPY ./ ./
+RUN pnpm install --frozen-lockfile
+# hadolint ignore=DL3059
+RUN pnpm turbo --filter='@lockerai/api' build
+
+FROM gcr.io/distroless/nodejs:${NODE_VERSION} AS runner
+ENV NODE_ENV=production
+
+WORKDIR /lockerai/
+
+COPY --chown=nonroot:nonroot --from=builder /lockerai/node_modules/ ./node_modules/
+COPY --chown=nonroot:nonroot --from=builder /lockerai/apps/api/node_modules/ ./apps/api/node_modules/
+COPY --chown=nonroot:nonroot --from=builder /lockerai/apps/api/dist/ ./apps/api/dist/
+
+WORKDIR /lockerai/apps/api/
+
+USER nonroot
+EXPOSE ${PORT}
+CMD ["./dist/main.js"]

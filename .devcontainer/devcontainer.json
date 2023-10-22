@@ -1,0 +1,41 @@
+{
+  "name": "lockerai",
+  "workspaceFolder": "/workspaces/lockerai/",
+  "dockerComposeFile": ["../docker/docker-compose.development.yaml"],
+  "service": "app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "adam-bender.commit-message-editor",
+        "bierner.color-info",
+        "bradlc.vscode-tailwindcss",
+        "christian-kohler.path-intellisense",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "ecmel.vscode-html-css",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "figma.figma-vscode-extension",
+        "formulahendry.auto-complete-tag",
+        "github.copilot",
+        "github.copilot-labs",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "graphql.vscode-graphql",
+        "gruntfuggly.todo-tree",
+        "hbenl.vscode-test-explorer",
+        "jock.svg",
+        "mikestead.dotenv",
+        "ms-ossdata.vscode-postgresql",
+        "orta.vscode-jest",
+        "stylelint.vscode-stylelint",
+        "usernamehw.errorlens",
+        "vincaslt.highlight-matching-tag",
+        "visualstudioexptteam.vscodeintellicode",
+        "wix.vscode-import-cost",
+        "wmaurer.change-case",
+        "yoavbls.pretty-ts-errors"
+      ]
+    }
+  }
+}

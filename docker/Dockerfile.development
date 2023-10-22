@@ -1,0 +1,15 @@
+ARG NODE_VERSION=18
+
+FROM node:${NODE_VERSION}
+
+# hadolint ignore=DL3008
+RUN apt-get update \
+  && apt-get --no-install-recommends -y install gnupg2 ca-certificates \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists \
+  && yarn global add pnpm
+
+WORKDIR /workspaces/lockerai/
+
+COPY ./ ./
+RUN pnpm install --frozen-lockfile

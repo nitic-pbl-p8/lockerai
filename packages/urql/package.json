@@ -1,0 +1,31 @@
+{
+  "name": "@lockerai/urql",
+  "version": "0.1.0",
+  "repository": "https://github.com/dino3616/lockerai.git",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint './**/{*.*js,*.*ts}'",
+    "lint:fix": "eslint './**/{*.*js,*.*ts}' --fix",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write .",
+    "test": "jest --silent=false --verbose false --passWithNoTests"
+  },
+  "dependencies": {
+    "@urql/core": "4.1.4",
+    "@urql/devtools": "2.0.3",
+    "@urql/next": "1.1.0",
+    "date-fns": "2.30.0",
+    "graphql": "16.8.1",
+    "graphql-ws": "5.14.1",
+    "urql-custom-scalars-exchange": "1.0.1"
+  },
+  "devDependencies": {
+    "@lockerai/jest": "workspace:*",
+    "@lockerai/prettier": "workspace:*",
+    "@lockerai/tsconfig": "workspace:*",
+    "@lockerai/type": "workspace:*",
+    "eslint-config-lockerai-esm": "workspace:*"
+  }
+}

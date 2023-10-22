@@ -1,0 +1,22 @@
+name: lockerai
+
+version: "3.8"
+
+services:
+  app:
+    container_name: lockerai-app
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.development
+    volumes:
+      - type: bind
+        source: ../
+        target: /workspaces/lockerai/
+      - type: volume
+        source: pnpm-store
+        target: /workspaces/lockerai/.pnpm-store/
+    tty: true
+
+volumes:
+  pnpm-store:
+    driver: local
