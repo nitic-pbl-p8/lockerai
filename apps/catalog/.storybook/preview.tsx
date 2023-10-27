@@ -39,6 +39,9 @@ const preview: Preview = {
     }),
   ],
   parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
     viewport: {
       viewports: INITIAL_VIEWPORTS,
     },
