@@ -7,6 +7,7 @@
   "type": "module",
   "module": "nodenext",
   "scripts": {
+    "generate": "graphql-codegen --config codegen.ts -r dotenv/config",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -24,6 +25,9 @@
     "@lockerai/design-token": "workspace:*",
     "@lockerai/tailwind": "workspace:*",
     "@lockerai/urql": "workspace:*",
+    "@supabase/auth-helpers-nextjs": "0.8.1",
+    "@supabase/auth-helpers-react": "0.4.2",
+    "@supabase/supabase-js": "2.38.2",
     "dotenv": "16.3.1",
     "framer-motion": "10.16.4",
     "graphql-tag": "2.12.6",
