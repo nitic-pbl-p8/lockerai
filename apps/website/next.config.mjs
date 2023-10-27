@@ -3,6 +3,9 @@ const config = {
   experimental: {
     typedRoutes: true,
   },
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  },
   reactStrictMode: true,
   transpilePackages: ['@lockerai/core'],
 };
