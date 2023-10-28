@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 import { relationKey } from './constant/relation-key';
 import { lostAndFoundStateEnum } from './enum/lost-and-found-state';
 import { lostItems } from './lost-items';
@@ -9,6 +9,7 @@ export const users = pgTable('users', {
   authId: uuid('auth_id').unique().notNull(),
   // TODO: Change to varchar or uuid as soon as the format of the string is known.
   fingerprintId: text('fingerprint_id').unique(),
+  name: varchar('name', { length: 64 }).notNull(),
   lostAndFoundState: lostAndFoundStateEnum('lost_and_found_state').notNull().default('NONE'),
   avatarUrl: text('avatar_url').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),

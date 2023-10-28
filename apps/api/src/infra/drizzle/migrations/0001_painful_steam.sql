@@ -1,0 +1,2 @@
+ALTER TABLE "users"
+ADD COLUMN "name" VARCHAR(64) NOT NULL;
