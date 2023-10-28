@@ -18,7 +18,7 @@
     "@urql/next": "1.1.0",
     "date-fns": "2.30.0",
     "graphql": "16.8.1",
-    "graphql-ws": "5.14.1",
+    "graphql-ws": "5.14.2",
     "urql-custom-scalars-exchange": "1.0.1"
   },
   "devDependencies": {
