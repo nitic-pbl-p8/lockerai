@@ -174,9 +174,14 @@
   "files.encoding": "utf8",
   "files.eol": "\n",
   "jest.jestCommandLine": "pnpm all -- test",
+  "Prettier-SQL.SQLFlavourOverride": "postgresql",
+  "Prettier-SQL.keywordCase": "upper",
   "tailwindCSS.classAttributes": ["class", "className"],
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"],
     ["className:.*cn\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"]
-  ]
+  ],
+  "[sql]": {
+    "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+  }
 }
