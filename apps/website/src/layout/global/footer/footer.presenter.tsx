@@ -3,7 +3,7 @@ import { Link } from '@lockerai/core/component/link';
 import { ExternalLinkIcon } from '@lockerai/core/icon/external-link-icon';
 import { cn } from '@lockerai/tailwind';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { ThemeSwitch } from '#website/common/component/theme-switch';
+import { ThemeSwitch } from './component/theme-switch';
 
 type NavigationLinkProps = ComponentPropsWithoutRef<typeof Link>;
 
