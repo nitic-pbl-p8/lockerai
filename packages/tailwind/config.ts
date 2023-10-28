@@ -4,6 +4,7 @@ import { withTV } from 'tailwind-variants/transformer';
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import type { KeyValuePair, PluginAPI, RecursiveKeyValuePair, ResolvableTo } from 'tailwindcss/types/config';
+import _tailwindcssRadixPlugin from 'tailwindcss-radix';
 import { createThemes } from 'tw-colors';
 
 const flattenColorPalette = (colorPalette: ResolvableTo<RecursiveKeyValuePair<string, string>>): KeyValuePair<string, string> =>
@@ -17,6 +18,8 @@ const flattenColorPalette = (colorPalette: ResolvableTo<RecursiveKeyValuePair<st
         : [{ [`${color}`]: values }],
     ),
   );
+
+const tailwindcssRadixPlugin = _tailwindcssRadixPlugin as unknown as typeof _tailwindcssRadixPlugin.handler;
 
 const defaultConfig: Config = {
   mode: 'jit',
@@ -35,6 +38,7 @@ const defaultConfig: Config = {
       'display-black': '900',
     },
     keyframes: {
+      ...defaultTheme.keyframes,
       'translate-x-full': {
         '100%': {
           transform: 'translateX(100%)',
@@ -66,6 +70,9 @@ const defaultConfig: Config = {
       );
     },
     require('tailwindcss-animate'),
+    tailwindcssRadixPlugin({
+      variantPrefix: 'rdx',
+    }),
   ],
 };
 
