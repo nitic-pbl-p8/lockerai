@@ -4,14 +4,19 @@ import { BrandLogo } from '@lockerai/core/component/brand-logo';
 import { LinkButton } from '@lockerai/core/component/link-button';
 import { motion } from 'framer-motion';
 import { type ComponentPropsWithoutRef, type ReactNode, useState } from 'react';
+import { SignInDialog } from './component/sign-in-dialog';
 
-type HeroSectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'className'>;
+type HeroSectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'className'> & {
+  asAuth?: boolean;
+  redirectPathname?: string;
+};
 
-export const HeroSection = ({ ...props }: HeroSectionProps): ReactNode => {
+export const HeroSection = ({ asAuth, redirectPathname, ...props }: HeroSectionProps): ReactNode => {
   const [isLogoAnimated, setIsLogoAnimated] = useState(false);
 
   return (
     <section className="relative flex h-[100svh] items-center justify-center px-5 tablet:px-20" {...props}>
+      <SignInDialog defaultOpen={asAuth} redirectPathname={redirectPathname} />
       <div className="flex w-[940px] flex-col items-center gap-8 tablet:gap-16">
         <motion.hgroup layout data-chromatic="ignore" className="flex flex-col items-center gap-6">
           <motion.h1 layout className="w-fit">
@@ -37,6 +42,7 @@ export const HeroSection = ({ ...props }: HeroSectionProps): ReactNode => {
                 ease: 'easeOut',
               }}
               layout
+              data-chromatic="ignore"
               className="text-center text-4xl text-sage-12 tablet:text-5xl laptop:text-7xl"
             >
               <span className="flex flex-col font-extra-bold">
@@ -54,7 +60,6 @@ export const HeroSection = ({ ...props }: HeroSectionProps): ReactNode => {
           )}
         </motion.hgroup>
         <motion.div
-          data-chromatic="ignore"
           initial={{
             opacity: 0,
           }}
@@ -65,6 +70,7 @@ export const HeroSection = ({ ...props }: HeroSectionProps): ReactNode => {
             duration: 1.5,
             delay: 2.5,
           }}
+          data-chromatic="ignore"
           className="flex w-5/6 flex-col items-center gap-4 tablet:w-auto tablet:flex-row tablet:gap-20"
         >
           <LinkButton
