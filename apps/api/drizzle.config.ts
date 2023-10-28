@@ -16,7 +16,7 @@ if (!process.env['DATABASE_URL']) {
 
 const drizzleConfig: Config = {
   schema: './src/infra/drizzle/schema/**/*.ts',
-  out: './src/infra/drizzle/migration',
+  out: './src/infra/drizzle/migrations',
   breakpoints: true,
   strict: true,
   driver: 'pg',
