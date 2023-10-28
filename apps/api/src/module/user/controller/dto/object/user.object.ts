@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { IsUUID } from 'class-validator';
+import { IsUUID, IsUrl } from 'class-validator';
 import { UserLostAndFoundStateEnum } from '#api/module/user/controller/dto/enum/user-lost-and-found-state.enum';
 import { User } from '#api/module/user/domain/user.model';
 
@@ -10,6 +10,7 @@ export class UserObject implements User {
   id!: string;
 
   @Field(() => ID, { nullable: false })
+  @IsUUID()
   authId!: string;
 
   @Field(() => ID, { nullable: true })
@@ -17,6 +18,10 @@ export class UserObject implements User {
 
   @Field(() => UserLostAndFoundStateEnum, { nullable: false })
   lostAndFoundState!: UserLostAndFoundStateEnum;
+
+  @Field(() => String, { nullable: false })
+  @IsUrl()
+  avatarUrl!: string;
 
   @Field(() => Date, { nullable: false })
   createdAt!: Date;
