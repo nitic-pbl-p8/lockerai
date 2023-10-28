@@ -9,8 +9,8 @@ import type { UserRepositoryInterface } from '#api/module/user/repository/user.r
 export class UserRepository implements UserRepositoryInterface {
   constructor(@Inject(PG_CONNECTION) private readonly conn: PgConnection) {}
 
-  async find(userId: Parameters<UserRepositoryInterface['find']>[0]): Promise<User | null> {
-    const foundUser = (await this.conn.select().from(users).where(eq(users.id, userId))).at(0);
+  async findByAuthId(authId: Parameters<UserRepositoryInterface['findByAuthId']>[0]): Promise<User | null> {
+    const foundUser = (await this.conn.select().from(users).where(eq(users.authId, authId))).at(0);
     if (foundUser === undefined) {
       return null;
     }
