@@ -103,6 +103,20 @@ jobs:
       - name: push migration file to remote db
         run: pnpm supabase db push
 
+      - name: commit migration file
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./supabase/migrations/ -N
+          if git diff --name-only | grep -q "supabase/migrations/.*.sql"; then \
+            git add ./supabase/migrations/; \
+            git commit -m "actions: 🤖 (supabase) updated migration file"; \
+            git push origin HEAD:${GITHUB_REF} --force; \
+            echo "Committed changes to migration history"; \
+          else \
+            echo "No changes detected in migration history"; \
+          fi
+
   db-push-migration-check:
     runs-on: ubuntu-latest
     needs: push
