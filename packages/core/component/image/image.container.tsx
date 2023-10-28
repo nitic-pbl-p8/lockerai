@@ -15,7 +15,12 @@ export const Image = forwardRef<ElementRef<typeof ImagePresenter>, Omit<ImagePro
   const placeholder = priority ? undefined : 'blur';
 
   return (
-    <Skeleton effect-hidden={isLoaded || !placeholder} {...skeleton}>
+    <Skeleton
+      variant={{
+        'effect-hidden': isLoaded || !placeholder,
+      }}
+      {...skeleton}
+    >
       <ImagePresenter
         ref={ref}
         placeholder={placeholder}
