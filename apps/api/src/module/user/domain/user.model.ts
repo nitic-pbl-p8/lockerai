@@ -9,13 +9,16 @@ export class User {
 
   readonly lostAndFoundState: UserLostAndFoundState;
 
+  readonly avatarUrl: string;
+
   readonly createdAt: Date;
 
-  constructor({ id, authId, fingerprintId, lostAndFoundState, createdAt }: Omit<User, 'isPinned'>) {
+  constructor({ id, authId, fingerprintId, lostAndFoundState, avatarUrl, createdAt }: User) {
     this.id = id;
     this.authId = authId;
     this.fingerprintId = fingerprintId;
     this.lostAndFoundState = lostAndFoundState;
+    this.avatarUrl = avatarUrl;
     this.createdAt = createdAt;
   }
 }
