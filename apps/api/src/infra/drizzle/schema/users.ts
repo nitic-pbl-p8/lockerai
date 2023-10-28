@@ -6,11 +6,11 @@ import { lostItems } from './lost-items';
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
-  // TODO: Change to varchar as soon as the length of the string is known.
-  authId: text('auth_id').unique().notNull(),
-  // TODO: Change to varchar as soon as the length of the string is known.
+  authId: uuid('auth_id').unique().notNull(),
+  // TODO: Change to varchar or uuid as soon as the format of the string is known.
   fingerprintId: text('fingerprint_id').unique(),
   lostAndFoundState: lostAndFoundStateEnum('lost_and_found_state').notNull().default('NONE'),
+  avatarUrl: text('avatar_url').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 });
 
