@@ -1,9 +1,0 @@
-query ExampleQuery($where: UserWhereUniqueInput!) {
-  findUser(where: $where) {
-    authId
-    createdAt
-    fingerprintId
-    id
-    lostAndFoundState
-  }
-}

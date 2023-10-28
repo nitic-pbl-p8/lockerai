@@ -1,0 +1,10 @@
+query Query($where: UserWhereAuthIdInput!) {
+  verifyUserPresence(where: $where) {
+    authId
+    avatarUrl
+    createdAt
+    fingerprintId
+    id
+    lostAndFoundState
+  }
+}
