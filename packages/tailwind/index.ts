@@ -6,6 +6,7 @@ import {
   type TVCompoundVariants,
   type TVDefaultVariants,
   type TVReturnType,
+  type TVScreens,
   type TVSlots,
   type TVVariants,
   type VariantProps,
@@ -88,4 +89,4 @@ export const tv = <
   defaultVariants?: DV;
 }): TVReturnType<V, S, B, typeof tvConfig, EV, ES> => tvBase(options, tvConfig);
 
-export type { VariantProps };
+export type { VariantProps, TVScreens };
