@@ -26,7 +26,7 @@ export const Image = forwardRef<ElementRef<typeof ImagePresenter>, Omit<ImagePro
         placeholder={placeholder}
         priority={priority}
         onLoadStart={() => setIsLoaded(false)}
-        onLoadingComplete={() => setIsLoaded(true)}
+        onLoad={() => setIsLoaded(true)}
         {...props}
       />
     </Skeleton>
