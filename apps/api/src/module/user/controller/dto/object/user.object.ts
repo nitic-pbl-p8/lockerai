@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { IsUUID, IsUrl, MaxLength } from 'class-validator';
+import { IsEmail, IsUUID, IsUrl, MaxLength } from 'class-validator';
 import { UserLostAndFoundStateEnum } from '#api/module/user/controller/dto/enum/user-lost-and-found-state.enum';
 import { User } from '#api/module/user/domain/user.model';
 
@@ -19,6 +19,11 @@ export class UserObject implements User {
   @Field(() => String, { nullable: false })
   @MaxLength(64)
   name!: string;
+
+  @Field(() => String, { nullable: false })
+  @IsEmail()
+  @MaxLength(320)
+  email!: string;
 
   @Field(() => UserLostAndFoundStateEnum, { nullable: false })
   lostAndFoundState!: UserLostAndFoundStateEnum;
