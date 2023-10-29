@@ -1,5 +1,0 @@
-query VerifyUserPresence($where: UserWhereAuthIdInput!) {
-  verifyUserPresence(where: $where) {
-    id
-  }
-}

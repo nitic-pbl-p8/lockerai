@@ -1,0 +1,12 @@
+query FindUser($where: UserWhereAuthIdInput!) {
+  findUser(where: $where) {
+    authId
+    avatarUrl
+    createdAt
+    email
+    fingerprintId
+    id
+    lostAndFoundState
+    name
+  }
+}

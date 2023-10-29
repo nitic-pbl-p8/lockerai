@@ -13,15 +13,15 @@ export class UserUseCase implements UserUseCaseInterface {
     private readonly userRepository: UserRepositoryInterface,
   ) {}
 
+  async findUser(authId: Parameters<UserUseCaseInterface['findUser']>[0]): Promise<User | null> {
+    const foundUser = await this.userRepository.findByAuthId(authId);
+
+    return foundUser;
+  }
+
   async createUser(user: Parameters<UserUseCaseInterface['createUser']>[0]): Promise<User> {
     const createdUser = await this.userRepository.create(user);
 
     return createdUser;
-  }
-
-  async verifyUserPresence(authId: Parameters<UserUseCaseInterface['verifyUserPresence']>[0]): Promise<User | null> {
-    const foundUser = await this.userRepository.findByAuthId(authId);
-
-    return foundUser;
   }
 }

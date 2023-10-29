@@ -18,13 +18,13 @@ export class UserQuery {
   ) {}
 
   @Query(() => UserObject, { nullable: true })
-  async verifyUserPresence(
+  async findUser(
     @Args('where', { type: () => UserWhereAuthIdInput }, ValidationPipe)
     where: UserWhereAuthIdInput,
   ): Promise<User | null> {
-    this.logger.log(`${this.verifyUserPresence.name} called`);
+    this.logger.log(`${this.findUser.name} called`);
 
-    const foundUser = await this.userUseCase.verifyUserPresence(where.authId);
+    const foundUser = await this.userUseCase.findUser(where.authId);
 
     return foundUser;
   }
