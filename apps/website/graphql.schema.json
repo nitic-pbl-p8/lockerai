@@ -88,7 +88,7 @@
         "description": null,
         "fields": [
           {
-            "name": "verifyUserPresence",
+            "name": "findUser",
             "description": null,
             "args": [
               {
