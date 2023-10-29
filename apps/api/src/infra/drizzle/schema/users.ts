@@ -10,6 +10,7 @@ export const users = pgTable('users', {
   // TODO: Change to varchar or uuid as soon as the format of the string is known.
   fingerprintId: text('fingerprint_id').unique(),
   name: varchar('name', { length: 64 }).notNull(),
+  email: varchar('email', { length: 320 }).notNull(),
   lostAndFoundState: lostAndFoundStateEnum('lost_and_found_state').notNull().default('NONE'),
   avatarUrl: text('avatar_url').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
