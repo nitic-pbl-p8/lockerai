@@ -34,7 +34,7 @@ export const SignInDialog = ({ signIn, defaultOpen, ...props }: SignInDialogProp
           <p className="text-5xl font-bold text-sage-12">You need to sign in</p>
         </div>
         <p className="text-xl text-sage-11">
-          Locker.ai is a service that uses a unique AI-driven authentication mechanism to safely report and retrieve lost items. Please sign in to the
+          Locker.ai is a service that uses a unique AI-driven authentication mechanism to safely report and retrieve lost items. Sign in to the
           Locker.ai to manage lost items.
         </p>
         <Button
