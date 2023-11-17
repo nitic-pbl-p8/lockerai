@@ -33,7 +33,7 @@ export const UserDropdownMenu = ({ user, signOut, ...props }: UserDropdownMenuPr
       <button className="relative h-10 w-10 rounded-full drop-shadow-md" {...props}>
         <Image
           aria-hidden
-          src={user.avatar_url}
+          src={user.avatarUrl}
           alt=""
           width={40}
           height={40}
@@ -43,7 +43,7 @@ export const UserDropdownMenu = ({ user, signOut, ...props }: UserDropdownMenuPr
           className="absolute inset-0 h-full w-full rounded-full blur-sm"
         />
         <Image
-          src={user.avatar_url}
+          src={user.avatarUrl}
           alt="Your avatar image."
           width={40}
           height={40}
