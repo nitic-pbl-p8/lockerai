@@ -16,14 +16,8 @@ export const Header = ({ user: initialUser, ...props }: HeaderProps): ReactNode 
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_, session) => {
-      if (session) {
-        setUser({
-          id: session.user.id,
-          name: session.user.user_metadata['full_name'],
-          avatar_url: session.user.user_metadata['avatar_url'],
-        });
-      } else {
+    } = supabase.auth.onAuthStateChange(async (_, session) => {
+      if (!session) {
         setUser(null);
       }
     });
