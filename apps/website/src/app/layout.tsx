@@ -7,8 +7,10 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { Metadata, NextPage, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
+import { UrqlProvider } from '#website/infra/urql/ssr';
 import { Footer } from '#website/layout/global/footer';
 import { Header } from '#website/layout/global/header';
+import { findUserUseCase } from '#website/use-case/find-user';
 import '#website/style/global.css';
 
 type RootLayoutProps = {
@@ -25,6 +27,8 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const foundUser = user && (await findUserUseCase(user.id));
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
@@ -36,19 +40,13 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
             'from-pure to-[70%] [-webkit-mask-image:linear-gradient(to_bottom,var(--tw-gradient-stops))] [mask-image:linear-gradient(to_bottom,var(--tw-gradient-stops))]',
           )}
         />
-        <ThemeProvider attribute="data-theme" enableSystem defaultTheme="system">
-          <Header
-            user={
-              user && {
-                id: user.id,
-                name: user.user_metadata['full_name'],
-                avatar_url: user.user_metadata['avatar_url'],
-              }
-            }
-          />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <UrqlProvider>
+          <ThemeProvider attribute="data-theme" enableSystem defaultTheme="system">
+            <Header user={foundUser} />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </UrqlProvider>
       </body>
     </html>
   );
