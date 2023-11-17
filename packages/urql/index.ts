@@ -1,4 +1,4 @@
-import { type Client, cacheExchange, createClient, fetchExchange, ssrExchange } from '@urql/core';
+import { type Client, cacheExchange, createClient, fetchExchange, mapExchange, ssrExchange } from '@urql/core';
 import { devtoolsExchange } from '@urql/devtools';
 import { registerUrql as registerUrqlByMaker } from '@urql/next/rsc';
 import { createScalarExchamge } from './exchange/scalar-exchange';
@@ -13,9 +13,14 @@ export const createUrqlClient = (schema: unknown, graphqlUrl: string, wsUrl: str
       devtoolsExchange,
       createScalarExchamge(schema as Parameters<typeof createScalarExchamge>[0]),
       cacheExchange,
+      createSubscriptionExchange(wsUrl),
       ssr,
       fetchExchange,
-      createSubscriptionExchange(wsUrl),
+      mapExchange({
+        onError: (error, operation) => {
+          console.log(`The operation ${operation.key} has errored with:`, error);
+        },
+      }),
     ],
     suspense: true,
   });
@@ -27,6 +32,11 @@ export const registerUrql = (
   schema: Parameters<typeof createUrqlClient>[0],
   graphqlUrl: Parameters<typeof createUrqlClient>[1],
   wsUrl: Parameters<typeof createUrqlClient>[2],
-) => registerUrqlByMaker(() => createUrqlClient(schema, graphqlUrl, wsUrl).urqlClient);
+) => {
+  const { urqlClient } = createUrqlClient(schema, graphqlUrl, wsUrl);
+  const { getClient } = registerUrqlByMaker(() => urqlClient);
+
+  return { getClient };
+};
 
 export type { Client as UrqlClient };
