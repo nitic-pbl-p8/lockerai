@@ -4,7 +4,6 @@ query FindUser($where: UserWhereAuthIdInput!) {
     avatarUrl
     createdAt
     email
-    fingerprintId
     id
     lostAndFoundState
     name

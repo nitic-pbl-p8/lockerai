@@ -3,7 +3,6 @@ type LostAndFoundState = 'NONE' | 'DELIVERING' | 'RETRIEVING';
 export type User = {
   id: string;
   authId: string;
-  fingerprintId: string | undefined;
   name: string;
   email: string;
   lostAndFoundState: LostAndFoundState;
@@ -14,7 +13,6 @@ export type User = {
 export const mockUser = (user: Partial<User> = {}): User => ({
   id: 'e069eeb2-a239-44c7-9870-acc1af492264',
   authId: 'e069eeb2-a239-44c7-9870-acc1af492264',
-  fingerprintId: undefined,
   name: 'John Doe',
   email: 'example@example.com',
   lostAndFoundState: 'NONE',

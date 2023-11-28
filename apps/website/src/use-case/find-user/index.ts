@@ -20,7 +20,6 @@ export const findUserUseCase: FindUserUseCase = async (authId) => {
   return {
     id: data.findUser.id,
     authId: data.findUser.authId,
-    fingerprintId: data.findUser.fingerprintId ?? undefined,
     name: data.findUser.name,
     email: data.findUser.email,
     lostAndFoundState: data.findUser.lostAndFoundState,
