@@ -13,7 +13,7 @@
     "test": "jest --silent=false --verbose false --passWithNoTests"
   },
   "dependencies": {
-    "@urql/core": "4.1.4",
+    "@urql/core": "4.2.0",
     "@urql/devtools": "2.0.3",
     "@urql/next": "1.1.0",
     "date-fns": "2.30.0",

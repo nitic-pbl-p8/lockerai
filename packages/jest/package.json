@@ -14,11 +14,11 @@
   "devDependencies": {
     "@lockerai/prettier": "workspace:*",
     "@lockerai/tsconfig": "workspace:*",
-    "@types/jest": "29.5.7",
+    "@types/jest": "29.5.10",
     "eslint-config-lockerai-esm": "workspace:*",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
-    "next": "14.0.1",
+    "next": "14.0.3",
     "ts-jest": "29.1.1"
   }
 }
