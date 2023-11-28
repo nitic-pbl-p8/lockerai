@@ -4,7 +4,7 @@ import { UserLostAndFoundStateEnum } from '#api/module/user/controller/dto/enum/
 import { User } from '#api/module/user/domain/user.model';
 
 @ObjectType(User.name)
-export class UserObject implements User {
+export class UserObject implements Omit<User, 'hashedFingerprintId'> {
   @Field(() => ID, { nullable: false })
   @IsUUID()
   id!: string;
@@ -12,9 +12,6 @@ export class UserObject implements User {
   @Field(() => ID, { nullable: false })
   @IsUUID()
   authId!: string;
-
-  @Field(() => ID, { nullable: true })
-  fingerprintId!: string | null;
 
   @Field(() => String, { nullable: false })
   @MaxLength(64)
