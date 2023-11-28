@@ -8,6 +8,7 @@
   "type": "commonjs",
   "module": "nodenext",
   "scripts": {
+    "generate": "pnpm db:generate",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "dev": "cross-env NODE_ENV=development nest start --watch",
@@ -20,13 +21,11 @@
     "fmt": "prettier --check .",
     "fmt:fix": "prettier --write .",
     "test": "cross-env NODE_ENV=test jest --silent=false --verbose false --passWithNoTests",
-    "db:generate": "drizzle-kit generate:pg --config ./drizzle.config.ts",
-    "db:pull:dev": "cross-env NODE_ENV=development drizzle-kit generate:pg --config ./drizzle.config.ts",
-    "db:push:dev": "cross-env NODE_ENV=development drizzle-kit push:pg --config ./drizzle.config.ts",
-    "db:push:prod": "cross-env NODE_ENV=production drizzle-kit push:pg --config ./drizzle.config.ts",
-    "db:push:test": "cross-env NODE_ENV=test drizzle-kit push:pg --config ./drizzle.config.ts",
-    "db:studio:dev": "cross-env NODE_ENV=development drizzle-kit studio --config ./drizzle.config.ts",
-    "db:studio:prod": "cross-env NODE_ENV=production drizzle-kit studio --config ./drizzle.config.ts",
+    "db:generate": "prisma generate --schema ./src/infra/prisma/schema.prisma",
+    "db:migrate": "dotenv -e .env.production -- cross-env NODE_ENV=production prisma migrate dev --schema ./src/infra/prisma/schema.prisma --name new_migration",
+    "db:deploy:dev": "dotenv -e .env.development -- cross-env NODE_ENV=development prisma migrate deploy --schema ./src/infra/prisma/schema.prisma",
+    "db:deploy:prod": "dotenv -e .env.production -- cross-env NODE_ENV=production prisma migrate deploy --schema ./src/infra/prisma/schema.prisma",
+    "db:studio": "dotenv -e .env.development -- cross-env NODE_ENV=development prisma studio --schema ./src/infra/prisma/schema.prisma",
     "apollo:rover": "rover graph publish lockerai@current --schema ./schema.gql"
   },
   "dependencies": {
@@ -39,6 +38,7 @@
     "@nestjs/graphql": "12.0.9",
     "@nestjs/platform-express": "10.2.7",
     "@nestjs/testing": "10.2.7",
+    "@prisma/client": "5.6.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
     "dataloader": "2.2.2",
@@ -63,6 +63,7 @@
     "@types/pg": "8.10.7",
     "drizzle-kit": "0.19.13",
     "eslint-config-lockerai-node": "workspace:*",
-    "pg": "8.11.3"
+    "pg": "8.11.3",
+    "prisma": "5.6.0"
   }
 }

@@ -91,17 +91,17 @@ jobs:
       - name: start local supabase
         run: pnpm supabase start
 
-      - name: push migration file to local db
+      - name: deploy migration file to local db
         run: |
           mkdir -p ./supabase/migrations/
-          cp -r ./apps/api/src/infra/drizzle/migrations/*.sql ./supabase/migrations/
+          cp -r ./apps/api/src/infra/prisma/migrations/ ./supabase/migrations/
           pnpm supabase db reset
 
       - name: lint local db
         run: pnpm supabase db lint
 
-      - name: push migration file to remote db
-        run: pnpm supabase db push
+      - name: deploy migration file to remote db
+        run: pnpm supabase db db:deploy:prod
 
       - name: commit migration file
         run: |
