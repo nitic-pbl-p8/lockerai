@@ -181,6 +181,9 @@
     ["tv\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"],
     ["className:.*cn\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"]
   ],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "[sql]": {
     "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
   }
