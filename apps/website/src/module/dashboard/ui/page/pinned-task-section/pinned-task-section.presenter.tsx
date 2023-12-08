@@ -1,8 +1,10 @@
-import Image from 'next/image';
+import { Image } from '@lockerai/core/component/image';
+import { type ComponentPropsWithoutRef } from 'react';
 
-export const PinnedTask = () => {
+type PinnedTaskSectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'className'>;
+export const PinnedTask = ({ ...props }: PinnedTaskSectionProps) => {
   return (
-    <section className="flex flex-col items-center gap-8">
+    <section className="flex flex-col items-center gap-8" {...props}>
       <div className="flex w-[860px] flex-col items-center gap-5">
         <h1 className="w-fit text-5xl font-bold text-sage-12">
           You are currently <span className="text-purple-11">delivering</span>
@@ -21,12 +23,10 @@ export const PinnedTask = () => {
             height={320}
             alt="phone-image"
             className="rounded-3xl"
-          ></Image>
+          />
         </div>
         <div className="flex h-[190px] w-[760px] flex-col gap-8">
-          <div>
-            <p className="w-fit text-3xl font-bold text-sage-12">phone, iPhone 15, white, at station platform, around 5 o’clock</p>
-          </div>
+          <p className="w-fit text-3xl font-bold text-sage-12">phone, iPhone 15, white, at station platform, around 5 o’clock</p>
           <div className="flex gap-4">
             <div className="flex items-center justify-center">
               <Image
@@ -36,7 +36,7 @@ export const PinnedTask = () => {
                 height={40}
                 alt="user-icon"
                 className="rounded-full"
-              ></Image>
+              />
             </div>
             <div className="flex flex-col">
               <div>
