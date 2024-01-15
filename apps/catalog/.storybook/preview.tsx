@@ -35,7 +35,7 @@ const preview: Preview = {
         light: 'light',
         dark: 'dark',
       },
-      defaultTheme: defaultTheme,
+      defaultTheme,
     }),
   ],
   parameters: {
