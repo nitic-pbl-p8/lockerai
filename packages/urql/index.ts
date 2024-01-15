@@ -1,4 +1,4 @@
-import { type Client, cacheExchange, createClient, fetchExchange, mapExchange, ssrExchange } from '@urql/core';
+import { type Client, cacheExchange, createClient, fetchExchange, ssrExchange } from '@urql/core';
 import { devtoolsExchange } from '@urql/devtools';
 import { registerUrql as registerUrqlByMaker } from '@urql/next/rsc';
 import { createScalarExchamge } from './exchange/scalar-exchange';
@@ -16,11 +16,6 @@ export const createUrqlClient = (schema: unknown, graphqlUrl: string, wsUrl: str
       createSubscriptionExchange(wsUrl),
       ssr,
       fetchExchange,
-      mapExchange({
-        onError: (error, operation) => {
-          console.log(`The operation ${operation.key} has errored with:`, error);
-        },
-      }),
     ],
     suspense: true,
   });
