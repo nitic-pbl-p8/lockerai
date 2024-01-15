@@ -1,12 +1,9 @@
 name: db push migration
 
-# TODO: uncomment this
-# on:
-#   push:
-#     branches:
-#       - main
-
-on: push
+on:
+  push:
+    branches:
+      - main
 
 env:
   DATABASE_URL: postgresql://postgres:postgres@localhost:54322/postgres
@@ -43,7 +40,6 @@ jobs:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID: ${{ secrets.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID }}
       SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET: ${{ secrets.SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET }}
-      SUPABASE_AUTH_EXTERNAL_GOOGLE_URL: ${{ secrets.SUPABASE_AUTH_EXTERNAL_GOOGLE_URL }}
       SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
     needs: filter
     if: needs.filter.outputs.db == 'true'
@@ -91,31 +87,11 @@ jobs:
       - name: start local supabase
         run: pnpm supabase start
 
-      - name: deploy migration file to local db
-        run: |
-          mkdir -p ./supabase/migrations/
-          cp -r ./apps/api/src/infra/prisma/migrations/ ./supabase/migrations/
-          pnpm supabase db reset
-
       - name: lint local db
         run: pnpm supabase db lint
 
       - name: deploy migration file to remote db
-        run: pnpm supabase db db:deploy:prod
-
-      - name: commit migration file
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add ./supabase/migrations/ -N
-          if git diff --name-only | grep -q "supabase/migrations/.*.sql"; then \
-            git add ./supabase/migrations/; \
-            git commit -m "actions: 🤖 (supabase) updated migration file"; \
-            git push origin HEAD:${GITHUB_REF} --force; \
-            echo "Committed changes to migration history"; \
-          else \
-            echo "No changes detected in migration history"; \
-          fi
+        run: pnpm supabase db push
 
   db-push-migration-check:
     runs-on: ubuntu-latest
