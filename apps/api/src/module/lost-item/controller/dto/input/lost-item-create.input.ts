@@ -7,7 +7,17 @@ export class LostItemCreateInput
   implements
     Omit<
       LostItem,
-      'id' | 'title' | 'description' | 'imageUrls' | 'drawerId' | 'ownerId' | 'reportedAt' | 'deliveredAt' | 'retrievedAt' | 'hasRetrieved'
+      | 'id'
+      | 'title'
+      | 'description'
+      | 'imageUrls'
+      | 'drawerId'
+      | 'ownerId'
+      | 'reportedAt'
+      | 'ownedAt'
+      | 'deliveredAt'
+      | 'retrievedAt'
+      | 'hasRetrieved'
     >
 {
   @Field(() => String, { nullable: false })

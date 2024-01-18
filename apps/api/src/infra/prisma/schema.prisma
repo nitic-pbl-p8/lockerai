@@ -50,6 +50,7 @@ model LostItem {
   owner   User?   @relation(name: "owner-and-owned-lost-items", fields: [ownerId], references: [id])
 
   reportedAt  DateTime  @default(now()) @map("reported_at") @db.Timestamp
+  ownedAt     DateTime? @map("owned_at") @db.Timestamp
   deliveredAt DateTime? @map("delivered_at") @db.Timestamp
   retrievedAt DateTime? @map("retrieved_at") @db.Timestamp
 

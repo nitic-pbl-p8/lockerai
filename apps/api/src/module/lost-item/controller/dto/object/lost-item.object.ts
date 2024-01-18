@@ -22,6 +22,9 @@ export class LostItemObject implements Omit<LostItem, 'drawerId' | 'reporterId' 
   reportedAt!: Date;
 
   @Field(() => Date, { nullable: true })
+  ownedAt!: Date | null;
+
+  @Field(() => Date, { nullable: true })
   deliveredAt!: Date | null;
 
   @Field(() => Date, { nullable: true })

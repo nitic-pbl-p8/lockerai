@@ -8,7 +8,9 @@ import { InjectionToken } from '#api/common/constant/injection-token';
 import { AuthGuard } from '#api/common/guard/auth.guard';
 import type { LostItem } from '#api/module/lost-item/domain/lost-item.model';
 import { type LostItemUseCaseInterface } from '#api/module/lost-item/use-case/lost-item.use-case';
+import { UserWhereAuthIdInput } from '#api/module/user/controller/dto/input/user-where-auth-id.input';
 import { LostItemCreateInput } from './dto/input/lost-item-create.input';
+import { LostItemWhereIdInput } from './dto/input/lost-item-where-id.input';
 import { LostItemObject } from './dto/object/lost-item.object';
 
 @Resolver()
@@ -33,5 +35,19 @@ export class LostItemMutation {
     const createdLostItem = await this.lostItemUseCase.reportLostItem(lostItem, await Promise.all(imageFilePromises));
 
     return createdLostItem;
+  }
+
+  @Mutation(() => LostItemObject)
+  async ownLostItemOwner(
+    @Args('lostItem', { type: () => LostItemWhereIdInput })
+    lostItem: LostItemWhereIdInput,
+    @Args('user', { type: () => UserWhereAuthIdInput })
+    user: UserWhereAuthIdInput,
+  ): Promise<LostItem> {
+    this.logger.log(`${this.ownLostItemOwner.name} called`);
+
+    const ownedLostItem = await this.lostItemUseCase.ownLostItemOwner(lostItem.id, user.authId);
+
+    return ownedLostItem;
   }
 }

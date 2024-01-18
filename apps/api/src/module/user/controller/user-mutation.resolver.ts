@@ -45,18 +45,4 @@ export class UserMutation {
 
     return updatedUser;
   }
-
-  @Mutation(() => UserObject)
-  async applyLostItemOwner(
-    @Args('where', { type: () => UserWhereAuthIdInput }, ValidationPipe)
-    where: UserWhereAuthIdInput,
-    @Args('lostItemId', { type: () => String }, ValidationPipe)
-    lostItemId: string,
-  ): Promise<User> {
-    this.logger.log(`${this.applyLostItemOwner.name} called`);
-
-    const updatedUser = await this.userUseCase.applyLostItemOwner(where.authId, lostItemId);
-
-    return updatedUser;
-  }
 }

@@ -56,6 +56,7 @@ export class LostItemUseCase implements LostItemUseCaseInterface {
         imageUrls,
         drawerId: null,
         ownerId: null,
+        ownedAt: null,
         deliveredAt: null,
         retrievedAt: null,
       },
@@ -93,5 +94,41 @@ export class LostItemUseCase implements LostItemUseCaseInterface {
     const similarLostItem = similarLostItemId ? similarLostItems.find(([lostItem]) => lostItem.id === similarLostItemId)?.[0] ?? null : null;
 
     return similarLostItem;
+  }
+
+  async ownLostItemOwner(
+    lostItemId: Parameters<LostItemUseCaseInterface['ownLostItemOwner']>[0],
+    authId: Parameters<LostItemUseCaseInterface['ownLostItemOwner']>[1],
+  ): Promise<LostItem> {
+    const [lostItem, owner, reporter] = await Promise.all([
+      this.lostItemRepository.find(lostItemId),
+      this.userRepository.findByAuthId(authId),
+      this.userRepository.findByReportedLostItemId(lostItemId),
+    ]);
+    if (!lostItem) {
+      throw new Error('Lost item not found. The lostItemId may be invalid.');
+    }
+    if (lostItem.hasRetrieved) {
+      throw new Error('The lost item has already been retrieved.');
+    }
+    if (!owner) {
+      throw new Error('User not found. The authId may be invalid.');
+    }
+    if (owner.isOnTheWay) {
+      throw new Error(`The user is already in ${owner.lostAndFoundState} state.`);
+    }
+    if (!reporter) {
+      throw new Error('The lost item reporter not found. The lostItemId may be invalid.');
+    }
+    if (owner.id === reporter.id) {
+      throw new Error('The lost item reporter and the owner are the same person.');
+    }
+
+    const updatedLostItem = await this.lostItemRepository.update(lostItemId, {
+      ownerId: owner.id,
+      ownedAt: new Date(),
+    });
+
+    return updatedLostItem;
   }
 }

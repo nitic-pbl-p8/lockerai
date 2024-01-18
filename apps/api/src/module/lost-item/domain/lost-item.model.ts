@@ -15,6 +15,8 @@ export class LostItem {
 
   readonly reportedAt: Date;
 
+  readonly ownedAt: Date | null;
+
   readonly deliveredAt: Date | null;
 
   readonly retrievedAt: Date | null;
@@ -28,6 +30,7 @@ export class LostItem {
     reporterId,
     ownerId,
     reportedAt,
+    ownedAt,
     deliveredAt,
     retrievedAt,
   }: Omit<LostItem, 'hasRetrieved'>) {
@@ -39,6 +42,7 @@ export class LostItem {
     this.reporterId = reporterId;
     this.ownerId = ownerId;
     this.reportedAt = reportedAt;
+    this.ownedAt = ownedAt;
     this.deliveredAt = deliveredAt;
     this.retrievedAt = retrievedAt;
   }

@@ -40,6 +40,7 @@ export class LostItemRepository implements LostItemRepositoryInterface {
   async findManyByReporterIds(reporterIds: Parameters<LostItemRepositoryInterface['findManyByReporterIds']>[0]): Promise<LostItem[]> {
     const lostItems = await this.prismaService.lostItem.findMany({
       where: { reporterId: { in: reporterIds } },
+      orderBy: { reportedAt: 'desc' },
     });
 
     return lostItems.map((lostItem) => new LostItem(lostItem));
@@ -48,6 +49,7 @@ export class LostItemRepository implements LostItemRepositoryInterface {
   async findManyByOwnerIds(ownerIds: Parameters<LostItemRepositoryInterface['findManyByOwnerIds']>[0]): Promise<LostItem[]> {
     const lostItems = await this.prismaService.lostItem.findMany({
       where: { ownerId: { in: ownerIds } },
+      orderBy: { ownedAt: 'desc' },
     });
 
     return lostItems.map((lostItem) => new LostItem(lostItem));

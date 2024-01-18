@@ -10,8 +10,6 @@ export interface LostItemRepositoryInterface {
   create(lostItem: Omit<LostItem, 'reportedAt' | 'hasRetrieved'>, embeddedDescription: number[]): Promise<LostItem>;
   update(
     lostItemId: LostItem['id'],
-    lostItem: Partial<
-      Omit<LostItem, 'id' | 'title' | 'description' | 'imageUrls' | 'drawerId' | 'reporterId' | 'ownerId' | 'reportedAt' | 'hasRetrieved'>
-    >,
+    lostItem: Partial<Omit<LostItem, 'id' | 'title' | 'description' | 'imageUrls' | 'drawerId' | 'reporterId' | 'reportedAt' | 'hasRetrieved'>>,
   ): Promise<LostItem>;
 }
