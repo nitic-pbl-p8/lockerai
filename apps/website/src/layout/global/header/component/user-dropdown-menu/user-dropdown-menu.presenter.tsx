@@ -11,6 +11,7 @@ import {
 } from '@lockerai/core/component/dropdown-menu';
 import { Image } from '@lockerai/core/component/image';
 import { Link } from '@lockerai/core/component/link';
+import { Tag } from '@lockerai/core/component/tag';
 import { DashboardIcon } from '@lockerai/core/icon/dashboard-icon';
 import { ExternalLinkIcon } from '@lockerai/core/icon/external-link-icon';
 import { FigmaIcon } from '@lockerai/core/icon/figma-icon';
@@ -58,9 +59,11 @@ export const UserDropdownMenu = ({ user, signOut, ...props }: UserDropdownMenuPr
       <DropdownMenuLabel className="flex items-center gap-6">
         <div className="flex flex-col gap-1">
           <p className="text-base font-bold text-sage-12">{user.name}</p>
-          {/* TODO: */}
-          <p className="text-sm text-sage-11">{user.id.slice(0, 8)}</p>
+          <p className="text-sm text-sage-11">{user.email}</p>
         </div>
+        {user.lostAndFoundState !== 'NONE' ? (
+          <Tag variant={{ color: user.lostAndFoundState === 'DELIVERING' ? 'purple' : 'cyan' }}>{user.lostAndFoundState.toLowerCase()}</Tag>
+        ) : null}
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
