@@ -3,7 +3,7 @@ import { IsEmail, IsUUID, IsUrl, MaxLength } from 'class-validator';
 import type { User } from '#api/module/user/domain/user.model';
 
 @InputType()
-export class UserCreateInput implements Omit<User, 'id' | 'hashedFingerprintId' | 'lostAndFoundState' | 'createdAt'> {
+export class UserCreateInput implements Omit<User, 'id' | 'hashedFingerprintId' | 'lostAndFoundState' | 'createdAt' | 'isOnTheWay'> {
   @Field(() => String, { nullable: false })
   @IsUUID()
   authId!: string;

@@ -17,7 +17,7 @@ export class User {
 
   readonly createdAt: Date;
 
-  constructor({ id, authId, hashedFingerprintId, name, email, lostAndFoundState, avatarUrl, createdAt }: User) {
+  constructor({ id, authId, hashedFingerprintId, name, email, lostAndFoundState, avatarUrl, createdAt }: Omit<User, 'isOnTheWay'>) {
     this.id = id;
     this.authId = authId;
     this.hashedFingerprintId = hashedFingerprintId;
@@ -26,5 +26,9 @@ export class User {
     this.lostAndFoundState = lostAndFoundState;
     this.avatarUrl = avatarUrl;
     this.createdAt = createdAt;
+  }
+
+  get isOnTheWay(): boolean {
+    return this.lostAndFoundState !== 'NONE';
   }
 }

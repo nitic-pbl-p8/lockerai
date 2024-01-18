@@ -19,14 +19,14 @@ model User {
   id                  String            @id @default(uuid()) @db.Uuid
   authId              String            @unique @map("auth_id") @db.Uuid
   // TODO: Change to varchar or uuid as soon as the format of the string is known.
-  hashedFingerprintId String?           @unique @map("hashed_fingerprint_id") @db.Char(64)
+  hashedFingerprintId String?           @unique @map("hashed_fingerprint_id")
   name                String            @map("name") @db.VarChar(64)
   email               String            @map("email") @db.VarChar(320)
   lostAndFoundState   LostAndFoundState @default(NONE) @map("lost_and_found_state")
   avatarUrl           String            @map("avatar_url")
 
-  reportedLostItems  LostItem[] @relation(name: "reporter-and-reported-lost-items")
-  retrievedLostItems LostItem[] @relation(name: "owner-and-retrieved-lost-items")
+  reportedLostItems LostItem[] @relation(name: "reporter-and-reported-lost-items")
+  ownedLostItems    LostItem[] @relation(name: "owner-and-owned-lost-items")
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
 
@@ -35,17 +35,19 @@ model User {
 
 model LostItem {
   id                  String                @id @default(uuid()) @db.Uuid
+  title               String                @map("title")
+  description         String                @map("description")
   embeddedDescription Unsupported("vector") @map("embedded_description")
   imageUrls           String[]              @map("image_urls")
 
-  drawerId Int    @unique @map("drawer_id")
-  drawer   Drawer @relation(fields: [drawerId], references: [id])
+  drawerId Int?    @unique @map("drawer_id")
+  drawer   Drawer? @relation(fields: [drawerId], references: [id])
 
-  reporterId String @unique @db.Uuid
+  reporterId String @map("reporter_id") @db.Uuid
   reporter   User   @relation(name: "reporter-and-reported-lost-items", fields: [reporterId], references: [id])
 
-  ownerId String? @unique @db.Uuid
-  owner   User?   @relation(name: "owner-and-retrieved-lost-items", fields: [ownerId], references: [id])
+  ownerId String? @map("owner_id") @db.Uuid
+  owner   User?   @relation(name: "owner-and-owned-lost-items", fields: [ownerId], references: [id])
 
   reportedAt  DateTime  @default(now()) @map("reported_at") @db.Timestamp
   deliveredAt DateTime? @map("delivered_at") @db.Timestamp
@@ -57,7 +59,7 @@ model LostItem {
 model Drawer {
   id Int @id @default(autoincrement())
 
-  lockerId String @unique @map("locker_id") @db.Uuid
+  lockerId String @map("locker_id") @db.Uuid
   Locker   Locker @relation(fields: [lockerId], references: [id])
 
   lostItem LostItem?
