@@ -1,0 +1,5 @@
+fragment UserPublicMeta on User {
+  avatarUrl
+  id
+  name
+}
