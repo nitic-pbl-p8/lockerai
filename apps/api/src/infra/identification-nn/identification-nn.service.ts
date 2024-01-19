@@ -28,7 +28,7 @@ export class IdentificationNnService {
     type Response = {
       // NOTE: The first element of the tuple represents the probability of a match and the second element represents the probability of a mismatch.
       data: [number, number];
-      error: string;
+      error?: string;
     };
 
     const identities = await Promise.all(
