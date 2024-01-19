@@ -9,6 +9,7 @@ const config: CodegenConfig = {
       config: {
         scalars: {
           DateTime: 'Date',
+          Upload: 'File',
         },
         strictScalars: true,
         withHooks: false,
