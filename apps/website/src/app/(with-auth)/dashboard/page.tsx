@@ -1,7 +1,41 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { Metadata, NextPage } from 'next';
-import { PinnedTask } from '~website/src/module/dashboard/pinned-task-section';
+import { cookies } from 'next/headers';
+import { PinnedTaskSection } from '#website/module/dashboard/pinned-task-section';
+import { findUserUseCase } from '#website/use-case/find-user';
+import { findUserLostItemsUseCase } from '~website/src/use-case/find-user-lost-items';
 
-const DashboardPage: NextPage = () => <PinnedTask />;
+const DashboardPage: NextPage = async () => {
+  const cookieStore = cookies();
+
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return null;
+  }
+
+  const foundUser = await findUserUseCase(user.id);
+  if (!foundUser) {
+    return null;
+  }
+
+  const userLostItem = await findUserLostItemsUseCase(foundUser.authId);
+  if (!userLostItem) {
+    return null;
+  }
+
+  return userLostItem.currentTargetLostItem && foundUser.lostAndFoundState !== 'NONE' ? (
+    <PinnedTaskSection
+      user={foundUser}
+      currentTargetLostItem={userLostItem.currentTargetLostItem}
+      variant={{
+        'lost-and-found-state': foundUser.lostAndFoundState,
+      }}
+    />
+  ) : null;
+};
 
 export default DashboardPage;
 

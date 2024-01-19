@@ -1,1 +1,1 @@
-export { PinnedTask } from './pinned-task-section.presenter';
+export { PinnedTaskSection } from './pinned-task-section.presenter';
