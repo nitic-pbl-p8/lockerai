@@ -5,9 +5,15 @@ import { urqlClient } from '#website/infra/urql';
 type FindUserUseCase = (authId: string) => Promise<User | null>;
 
 export const findUserUseCase: FindUserUseCase = async (authId) => {
-  const { data, error } = await urqlClient.query<FindUserQuery, FindUserQueryVariables>(FindUserDocument, {
-    where: { authId },
-  });
+  const { data, error } = await urqlClient.query<FindUserQuery, FindUserQueryVariables>(
+    FindUserDocument,
+    {
+      where: { authId },
+    },
+    {
+      requestPolicy: 'cache-and-network',
+    },
+  );
   if (!data || error) {
     throw error || new Error('Failed to find user');
   }

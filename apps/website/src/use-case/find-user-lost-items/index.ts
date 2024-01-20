@@ -22,9 +22,15 @@ type FindUserLostItemsUseCaseOutput = {
 type FindUserLostItemsUseCase = (authId: string) => Promise<FindUserLostItemsUseCaseOutput | null>;
 
 export const findUserLostItemsUseCase: FindUserLostItemsUseCase = async (authId) => {
-  const { data, error } = await urqlClient.query<FindUserLostItemsQuery, FindUserLostItemsQueryVariables>(FindUserLostItemsDocument, {
-    where: { authId },
-  });
+  const { data, error } = await urqlClient.query<FindUserLostItemsQuery, FindUserLostItemsQueryVariables>(
+    FindUserLostItemsDocument,
+    {
+      where: { authId },
+    },
+    {
+      requestPolicy: 'cache-and-network',
+    },
+  );
   if (!data || error) {
     throw error || new Error('Failed to find user');
   }
