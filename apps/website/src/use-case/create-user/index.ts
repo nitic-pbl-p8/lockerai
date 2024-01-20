@@ -16,7 +16,7 @@ export const createUserUseCase: CreateUserUseCase = async ({ authId, name, email
     },
   });
   if (!data || error) {
-    throw error || new Error('Failed to create user');
+    throw error || new Error('Failed to create user.');
   }
 
   return {
