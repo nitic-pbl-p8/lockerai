@@ -13,7 +13,7 @@ type UserActionStatusListProps = Omit<ComponentPropsWithoutRef<'div'>, 'children
 };
 
 export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props }: UserActionStatusListProps): ReactNode => (
-  <div className="flex items-center gap-10" {...props}>
+  <div className="flex flex-col gap-4" {...props}>
     <div className="flex items-center gap-3">
       <Image
         src={reporter.avatarUrl}
@@ -42,7 +42,7 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
         </div>
       </div>
     </div>
-    {owner && (
+    {owner && lostItem.ownedAt && (
       <div className="flex items-center gap-3" {...props}>
         <Image
           src={owner.avatarUrl}
@@ -61,7 +61,7 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
             {owner.id === user.id ? <span className="text-sage-11"> (You)</span> : null}
           </p>
           <div className="flex items-center gap-1">
-            {lostItem.ownedAt && <p className="text-base text-sage-11">{formatDate(lostItem.ownedAt, 'MMM. dd, yyyy HH:mm')} owned</p>}
+            <p className="text-base text-sage-11">{formatDate(lostItem.ownedAt, 'MMM. dd, yyyy HH:mm')} owned</p>
             {lostItem.retrievedAt && (
               <>
                 <DotIcon className="h-4 w-4 fill-sage-11" />

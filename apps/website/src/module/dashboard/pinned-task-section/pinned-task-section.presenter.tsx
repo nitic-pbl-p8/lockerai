@@ -50,7 +50,7 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
   const { beacon, heading } = pinnedTaskSectionVariants({ ...variant });
 
   return (
-    <section className="flex flex-col items-center gap-8 px-16 py-12" {...props}>
+    <section className="flex flex-col items-center gap-10 px-16 py-12" {...props}>
       <div className="flex flex-col items-center gap-5">
         <h1 className="flex w-fit items-center gap-6">
           <span className={cn('relative h-6 w-6')}>
@@ -85,7 +85,7 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
             className="h-[320px] w-1/3 min-w-[480px] object-cover"
           />
         </figure>
-        <div className="flex w-fit shrink flex-col gap-5">
+        <div className="flex w-fit shrink flex-col gap-7">
           <hgroup className="flex flex-col gap-2">
             <h2 className="text-3xl font-bold text-sage-12">{currentTargetLostItem.lostItem.title}</h2>
             <p className="text-lg text-sage-11">{currentTargetLostItem.lostItem.description}</p>
