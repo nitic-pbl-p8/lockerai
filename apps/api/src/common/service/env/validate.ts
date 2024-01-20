@@ -14,7 +14,7 @@ export class EnvValidator {
   HUGGINGFACEHUB_API_TOKEN!: string;
 
   @IsUrl({ protocols: ['http', 'https'], require_tld: process.env['NODE_ENV'] === 'production' })
-  IDENTIFY_NN_ENDPOINT!: string;
+  IDENTIFICATION_NN_ENDPOINT!: string;
 
   @IsEnum(['development', 'production', 'test'])
   NODE_ENV!: 'development' | 'production' | 'test';

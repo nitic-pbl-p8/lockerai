@@ -38,10 +38,10 @@ export class EnvService {
     return huggingfacehubApiToken;
   }
 
-  get IdentifyNnEndpoint(): string {
-    const identifyNnEndpoint = this.configService.getOrThrow<string>('IDENTIFY_NN_ENDPOINT');
+  get IdentificationNnEndpoint(): string {
+    const identificationNnEndpoint = this.configService.getOrThrow<string>('IDENTIFICATION_NN_ENDPOINT');
 
-    return identifyNnEndpoint;
+    return identificationNnEndpoint;
   }
 
   get NodeEnv(): 'development' | 'production' | 'test' {

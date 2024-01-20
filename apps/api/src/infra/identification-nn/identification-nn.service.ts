@@ -14,7 +14,7 @@ export class IdentificationNnService {
   private readonly logger = new Logger(IdentificationNnService.name);
 
   constructor(@Inject(EnvService) private readonly envService: EnvService) {
-    this.url = this.envService.IdentifyNnEndpoint;
+    this.url = this.envService.IdentificationNnEndpoint;
 
     this.logger.debug(`${IdentificationNnService.name} constructed`);
   }
