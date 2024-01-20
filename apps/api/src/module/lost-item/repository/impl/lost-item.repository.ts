@@ -29,6 +29,46 @@ export class LostItemRepository implements LostItemRepositoryInterface {
     return new LostItem(lostItem);
   }
 
+  async findByReporterHashedFingerprintId(
+    hashedFingerprintId: Parameters<LostItemRepositoryInterface['findByReporterHashedFingerprintId']>[0],
+  ): Promise<LostItem | null> {
+    const lostItem = await this.prismaService.lostItem.findFirst({
+      where: {
+        reporter: {
+          hashedFingerprintId,
+        },
+      },
+      orderBy: {
+        reportedAt: 'desc',
+      },
+    });
+    if (!lostItem) {
+      return null;
+    }
+
+    return new LostItem(lostItem);
+  }
+
+  async findByOwnerHashedFingerprintId(
+    hashedFingerprintId: Parameters<LostItemRepositoryInterface['findByOwnerHashedFingerprintId']>[0],
+  ): Promise<LostItem | null> {
+    const lostItem = await this.prismaService.lostItem.findFirst({
+      where: {
+        owner: {
+          hashedFingerprintId,
+        },
+      },
+      orderBy: {
+        ownedAt: 'desc',
+      },
+    });
+    if (!lostItem) {
+      return null;
+    }
+
+    return new LostItem(lostItem);
+  }
+
   async findMany(lostItemIds: Parameters<LostItemRepositoryInterface['findMany']>[0]): Promise<LostItem[]> {
     const lostItems = await this.prismaService.lostItem.findMany({
       where: { id: { in: lostItemIds } },
@@ -59,6 +99,7 @@ export class LostItemRepository implements LostItemRepositoryInterface {
     const similarLostItems = await this.prismaService.$queryRaw<(LostItem & { similarity: number })[]>`
       SELECT id, title, description, image_urls AS "imageUrls", drawer_id AS "drawerId", reporter_id AS "reporterId", owner_id AS "ownerId", reported_at AS "reportedAt", delivered_at AS "deliveredAt", retrieved_at AS "retrievedAt", 1 - (embedded_description <=> ${embeddedDescription}::vector) AS similarity
       FROM public.lost_items
+      WHERE owner_id == NULL
       ORDER BY similarity
       LIMIT 10
     `;

@@ -19,66 +19,48 @@ export class DrawerUseCase implements DrawerUseCaseInterface {
     private readonly userRepository: UserRepositoryInterface,
   ) {}
 
-  async putInLostItem(
-    reporterHashedFingerprintId: Parameters<DrawerUseCaseInterface['putInLostItem']>[0],
-    lostItemId: Parameters<DrawerUseCaseInterface['putInLostItem']>[1],
-  ): Promise<Drawer | null> {
-    const [foundLostItem, foundReporter] = await Promise.all([
-      this.lostItemRepository.find(lostItemId),
-      this.userRepository.findByReportedLostItemId(lostItemId),
-    ]);
+  async putInLostItem(reporterHashedFingerprintId: Parameters<DrawerUseCaseInterface['putInLostItem']>[0]): Promise<Drawer> {
+    const foundLostItem = await this.lostItemRepository.findByReporterHashedFingerprintId(reporterHashedFingerprintId);
     if (!foundLostItem) {
-      throw new HttpException('Lost item not found. The lostItemId may be invalid.', HttpStatus.NOT_FOUND);
+      throw new HttpException('Current delivering lost item not found. The hashedFingerprintId may be invalid.', HttpStatus.BAD_REQUEST);
     }
-    if (foundLostItem.hasRetrieved) {
-      throw new HttpException('The lost item has already been retrieved.', HttpStatus.BAD_REQUEST);
-    }
-    if (foundLostItem.drawerId) {
-      throw new HttpException('The lost item is already stored in a drawer.', HttpStatus.BAD_REQUEST);
-    }
-    if (!foundReporter) {
-      throw new HttpException('User not found. The hashedFingerprintId may be invalid.', HttpStatus.NOT_FOUND);
-    }
-    if (reporterHashedFingerprintId !== foundReporter.hashedFingerprintId) {
-      throw new HttpException('fingerprint is invalid.', HttpStatus.BAD_REQUEST);
+    if (foundLostItem.hasDelivered) {
+      throw new HttpException('The lost item has already been delivered.', HttpStatus.BAD_REQUEST);
     }
 
     const foundDrawer = await this.drawerRepository.findEmpty();
     if (!foundDrawer) {
-      return null;
+      throw new HttpException('No empty drawer found. All drawers are occupied.', HttpStatus.NOT_FOUND);
     }
 
-    const updatedDrawer = await this.drawerRepository.connectLostItem(foundDrawer.id, lostItemId);
+    const updatedDrawer = await this.drawerRepository.connectLostItem(foundDrawer.id, foundLostItem.id);
 
     await Promise.all([
-      this.lostItemRepository.update(lostItemId, { deliveredAt: new Date() }),
+      this.lostItemRepository.update(foundLostItem.id, { deliveredAt: new Date() }),
       this.userRepository.updateByHashedFingerprintId(reporterHashedFingerprintId, { lostAndFoundState: 'NONE' }),
     ]);
 
     return updatedDrawer;
   }
 
-  async takeOutLostItem(
-    ownerHashedFingerprintId: Parameters<DrawerUseCaseInterface['takeOutLostItem']>[0],
-    lostItemId: Parameters<DrawerUseCaseInterface['takeOutLostItem']>[1],
-  ): Promise<Drawer | null> {
-    const foundOwner = await this.userRepository.findByOwnedLostItemId(lostItemId);
-    if (!foundOwner) {
-      throw new HttpException('User not found. The hashedFingerprintId may be invalid.', HttpStatus.NOT_FOUND);
+  async takeOutLostItem(ownerHashedFingerprintId: Parameters<DrawerUseCaseInterface['takeOutLostItem']>[0]): Promise<Drawer> {
+    const foundLostItem = await this.lostItemRepository.findByOwnerHashedFingerprintId(ownerHashedFingerprintId);
+    if (!foundLostItem) {
+      throw new HttpException('Current retrieving lost item not found. The hashedFingerprintId may be invalid.', HttpStatus.BAD_REQUEST);
     }
-    if (ownerHashedFingerprintId !== foundOwner.hashedFingerprintId) {
-      throw new HttpException('fingerprint is invalid.', HttpStatus.BAD_REQUEST);
+    if (foundLostItem.hasRetrieved) {
+      throw new HttpException('The lost item has already been retrieved.', HttpStatus.BAD_REQUEST);
     }
 
-    const foundDrawer = await this.drawerRepository.findByLostItemId(lostItemId);
+    const foundDrawer = await this.drawerRepository.findByLostItemId(foundLostItem.id);
     if (!foundDrawer) {
-      return null;
+      throw new HttpException('The drawer of the lost item not found. The lost item may be not delivered yet.', HttpStatus.NOT_FOUND);
     }
 
     const updatedDrawer = await this.drawerRepository.disconnectLostItem(foundDrawer.id);
 
     await Promise.all([
-      this.lostItemRepository.update(lostItemId, { retrievedAt: new Date() }),
+      this.lostItemRepository.update(foundLostItem.id, { retrievedAt: new Date() }),
       this.userRepository.updateByHashedFingerprintId(ownerHashedFingerprintId, { lostAndFoundState: 'NONE' }),
     ]);
 

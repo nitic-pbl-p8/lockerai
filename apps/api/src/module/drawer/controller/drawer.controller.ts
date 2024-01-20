@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Inject, Logger, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Inject, Logger, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { InjectionToken } from '#api/common/constant/injection-token';
 import type { Drawer } from '#api/module/drawer/domain/drawer.model';
 // TODO: Once this issue is resolved, modify to use `import type` syntax.
@@ -20,22 +20,17 @@ export class DrawerController {
   async putInLostItem(@Body() updateConnectionBody: UpdateConnectionBody): Promise<Drawer> {
     this.logger.log(`${this.putInLostItem.name} called`);
 
-    const foundDrawer = await this.drawerUseCase.putInLostItem(updateConnectionBody.hashedFingerprintId, updateConnectionBody.lostItemId);
-    if (!foundDrawer) {
-      throw new HttpException('No empty drawer found. All drawers are occupied.', HttpStatus.NOT_FOUND);
-    }
+    const foundDrawer = await this.drawerUseCase.putInLostItem(updateConnectionBody.hashedFingerprintId);
 
     return foundDrawer;
   }
 
   @Post('/drawers/take-out')
+  @UsePipes(ValidationPipe)
   async takeOutLostItem(@Body() updateConnectionBody: UpdateConnectionBody): Promise<Drawer> {
     this.logger.log(`${this.takeOutLostItem.name} called`);
 
-    const foundDrawer = await this.drawerUseCase.takeOutLostItem(updateConnectionBody.hashedFingerprintId, updateConnectionBody.lostItemId);
-    if (!foundDrawer) {
-      throw new HttpException('No drawer found. The lost item may not be stored in the locker.', HttpStatus.NOT_FOUND);
-    }
+    const foundDrawer = await this.drawerUseCase.takeOutLostItem(updateConnectionBody.hashedFingerprintId);
 
     return foundDrawer;
   }
