@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Logger, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Inject, Logger, Param, UsePipes, ValidationPipe } from '@nestjs/common';
 import { InjectionToken } from '#api/common/constant/injection-token';
 import type { User } from '#api/module/user/domain/user.model';
 // TODO: Once this issue is resolved, modify to use `import type` syntax.
@@ -15,10 +15,14 @@ export class UserController {
   ) {}
 
   @Get('/users/:hashedFingerprintId')
+  @UsePipes(ValidationPipe)
   async findUserByHashedFingerprintId(@Param('hashedFingerprintId') hashedFingerprintId: string): Promise<User | null> {
     this.logger.log(`${this.findUserByHashedFingerprintId.name} called`);
 
     const foundUser = await this.userUseCase.findUserByHashedFingerprintId(hashedFingerprintId);
+    if (foundUser === null) {
+      throw new HttpException(`No user found with fingerprint ${hashedFingerprintId}.`, HttpStatus.NOT_FOUND);
+    }
 
     return foundUser;
   }
