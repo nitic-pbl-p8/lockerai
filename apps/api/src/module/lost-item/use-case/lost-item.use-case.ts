@@ -16,6 +16,7 @@ export interface LostItemUseCaseInterface {
       | 'ownedAt'
       | 'deliveredAt'
       | 'retrievedAt'
+      | 'hasDelivered'
       | 'hasRetrieved'
     >,
     imageFiles: FileUpload[],

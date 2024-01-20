@@ -33,7 +33,7 @@ export class LostItem {
     ownedAt,
     deliveredAt,
     retrievedAt,
-  }: Omit<LostItem, 'hasRetrieved'>) {
+  }: Omit<LostItem, 'hasDelivered' | 'hasRetrieved'>) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -45,6 +45,10 @@ export class LostItem {
     this.ownedAt = ownedAt;
     this.deliveredAt = deliveredAt;
     this.retrievedAt = retrievedAt;
+  }
+
+  get hasDelivered(): boolean {
+    return this.deliveredAt !== null;
   }
 
   get hasRetrieved(): boolean {

@@ -3,7 +3,7 @@ import { IsUUID, IsUrl } from 'class-validator';
 import { LostItem } from '#api/module/lost-item/domain/lost-item.model';
 
 @ObjectType(LostItem.name)
-export class LostItemObject implements Omit<LostItem, 'drawerId' | 'reporterId' | 'ownerId' | 'hasRetrieved'> {
+export class LostItemObject implements Omit<LostItem, 'drawerId' | 'reporterId' | 'ownerId' | 'hasDelivered' | 'hasRetrieved'> {
   @Field(() => ID, { nullable: false })
   @IsUUID()
   id!: string;

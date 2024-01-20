@@ -17,6 +17,7 @@ export class LostItemCreateInput
       | 'ownedAt'
       | 'deliveredAt'
       | 'retrievedAt'
+      | 'hasDelivered'
       | 'hasRetrieved'
     >
 {
