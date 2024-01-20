@@ -20,6 +20,7 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
         alt=""
         width={36}
         height={36}
+        priority
         skeleton={{
           className: 'rounded-full',
         }}
@@ -48,6 +49,7 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
           alt=""
           width={36}
           height={36}
+          priority
           skeleton={{
             className: 'rounded-full',
           }}
