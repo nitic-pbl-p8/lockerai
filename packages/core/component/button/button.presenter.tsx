@@ -17,7 +17,11 @@ const buttonVariant = tv({
     },
     width: {
       auto: 'w-auto',
+      fit: 'w-fit',
       full: 'w-full',
+    },
+    'as-icon': {
+      true: 'rounded-full p-2',
     },
   },
   defaultVariants: {
@@ -86,7 +90,7 @@ export const Button = forwardRef<ElementRef<'button'>, Omit<ButtonProps, 'ref'>>
       aria-busy={variant?.loading}
       aria-live={variant?.loading ? 'polite' : undefined}
       disabled={variant?.loading}
-      className={cn('relative rounded-xl px-5 py-2 transition', base({ ...variant }))}
+      className={cn('relative rounded-xl px-5 py-2 transition disabled:cursor-not-allowed', base({ ...variant }))}
       {...props}
     >
       <span className={cn('flex items-center gap-2 text-center text-sm font-bold tablet:text-base', content({ loading: variant?.loading }))}>
