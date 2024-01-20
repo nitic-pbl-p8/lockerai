@@ -71,7 +71,7 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
           {user.lostAndFoundState === 'DELIVERING' ? 'put in' : 'take out'} the lost item.
         </p>
       </div>
-      <div className="flex items-center gap-7">
+      <div className="flex items-center gap-10">
         <figure className="shrink-0">
           <Image
             src={currentTargetLostItem.lostItem.imageUrls[0]!}
@@ -79,7 +79,10 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
             width={480}
             height={320}
             sizes="(min-width: 480px) 30vw, 480px"
-            className="h-[320px] w-1/3 min-w-[480px] rounded-2xl object-cover"
+            skeleton={{
+              className: 'rounded-2xl',
+            }}
+            className="h-[320px] w-1/3 min-w-[480px] object-cover"
           />
         </figure>
         <div className="flex w-fit shrink flex-col gap-5">
