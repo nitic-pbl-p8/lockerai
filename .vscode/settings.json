@@ -176,10 +176,11 @@
   "jest.jestCommandLine": "pnpm all -- test",
   "Prettier-SQL.SQLFlavourOverride": "postgresql",
   "Prettier-SQL.keywordCase": "upper",
-  "tailwindCSS.classAttributes": ["class", "className"],
+  "tailwindCSS.classAttributes": ["class", "className", "classNames"],
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"],
-    ["className:.*cn\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"]
+    ["className:.*cn\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"],
+    ["classNames:.*cn\\(([^)]*)\\)", "[\"']([^\"']*).*?[\"']"]
   ],
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
