@@ -22,5 +22,5 @@ export interface LostItemUseCaseInterface {
     imageFiles: FileUpload[],
   ): Promise<LostItem>;
   findSimilarLostItem(userDescription: LostItem['description'], lostAt: Date): Promise<LostItem | null>;
-  ownLostItemOwner(lostItemId: LostItem['id'], authId: User['authId']): Promise<LostItem>;
+  ownLostItem(lostItemId: LostItem['id'], authId: User['authId']): Promise<LostItem>;
 }

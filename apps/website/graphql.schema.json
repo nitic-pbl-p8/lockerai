@@ -470,7 +470,7 @@
             "deprecationReason": null
           },
           {
-            "name": "ownLostItemOwner",
+            "name": "ownLostItem",
             "description": null,
             "args": [
               {

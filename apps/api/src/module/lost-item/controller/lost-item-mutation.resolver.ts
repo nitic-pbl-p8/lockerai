@@ -38,15 +38,15 @@ export class LostItemMutation {
   }
 
   @Mutation(() => LostItemObject)
-  async ownLostItemOwner(
+  async ownLostItem(
     @Args('lostItem', { type: () => LostItemWhereIdInput })
     lostItem: LostItemWhereIdInput,
     @Args('user', { type: () => UserWhereAuthIdInput })
     user: UserWhereAuthIdInput,
   ): Promise<LostItem> {
-    this.logger.log(`${this.ownLostItemOwner.name} called`);
+    this.logger.log(`${this.ownLostItem.name} called`);
 
-    const ownedLostItem = await this.lostItemUseCase.ownLostItemOwner(lostItem.id, user.authId);
+    const ownedLostItem = await this.lostItemUseCase.ownLostItem(lostItem.id, user.authId);
 
     return ownedLostItem;
   }

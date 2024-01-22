@@ -87,7 +87,7 @@ export class LostItemUseCase implements LostItemUseCaseInterface {
       similarLostItems.map(([lostItem, similarity]) => ({
         key: lostItem.id,
         similarity,
-        dateDifference: lostAt.getTime() - lostItem.reportedAt.getTime(),
+        dateDifference: Math.abs(lostAt.getTime() - lostItem.reportedAt.getTime()),
       })),
     );
 
@@ -96,9 +96,9 @@ export class LostItemUseCase implements LostItemUseCaseInterface {
     return similarLostItem;
   }
 
-  async ownLostItemOwner(
-    lostItemId: Parameters<LostItemUseCaseInterface['ownLostItemOwner']>[0],
-    authId: Parameters<LostItemUseCaseInterface['ownLostItemOwner']>[1],
+  async ownLostItem(
+    lostItemId: Parameters<LostItemUseCaseInterface['ownLostItem']>[0],
+    authId: Parameters<LostItemUseCaseInterface['ownLostItem']>[1],
   ): Promise<LostItem> {
     const [lostItem, owner, reporter] = await Promise.all([
       this.lostItemRepository.find(lostItemId),
@@ -128,6 +128,8 @@ export class LostItemUseCase implements LostItemUseCaseInterface {
       ownerId: owner.id,
       ownedAt: new Date(),
     });
+
+    await this.userRepository.updateByAuthId(authId, { lostAndFoundState: 'RETRIEVING' });
 
     return updatedLostItem;
   }
