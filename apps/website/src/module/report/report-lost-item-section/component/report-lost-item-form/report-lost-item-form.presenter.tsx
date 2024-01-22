@@ -2,8 +2,10 @@
 
 import { Button } from '@lockerai/core/component/button';
 import { Image } from '@lockerai/core/component/image';
+import { toast } from '@lockerai/core/component/sonner';
 import { AddingImageIcon } from '@lockerai/core/icon/adding-image-icon';
 import { CrossIcon } from '@lockerai/core/icon/cross-icon';
+import { ErrorIcon } from '@lockerai/core/icon/error-icon';
 import { SubmitIcon } from '@lockerai/core/icon/submit-icon';
 import { cn } from '@lockerai/tailwind';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -43,7 +45,19 @@ export const ReportLostItemForm = ({ reportLostItem, ...props }: ReportLostItemF
       event.preventDefault();
 
       setLoading(true);
-      await reportLostItem(imageFiles.map((imageFile) => imageFile.file));
+
+      const res = await reportLostItem(imageFiles.map((imageFile) => imageFile.file)).catch((error) => {
+        toast.error('Failed to report lost item.', {
+          description: error.message.replace('[GraphQL] ', ''),
+          icon: <ErrorIcon />,
+        });
+
+        return null;
+      });
+      if (res === null) {
+        return;
+      }
+
       setImageFiles([]);
       setLoading(false);
     },
