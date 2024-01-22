@@ -1,4 +1,4 @@
-import { type CanActivate, type ExecutionContext, Injectable } from '@nestjs/common';
+import { type CanActivate, type ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { EnvService } from '#api/common/service/env/env.service';
 import { SupabaseService } from '#api/infra/supabase/supabase.service';
 
@@ -13,21 +13,24 @@ export class AuthGuard implements CanActivate {
     if (this.envService.NodeEnv === 'development') {
       return true;
     }
+
     let accessToken: string | undefined;
     context.getArgs().forEach((arg) => {
       if (arg && arg.req && arg.req.headers) {
-        if (arg.req.headers.authorization) {
-          [, accessToken] = arg.req.headers.authorization.split(' ');
+        if (arg.req.headers['authorization']) {
+          accessToken = arg.req.headers['authorization'].replace('Bearer ', '');
         }
       }
     });
     if (!accessToken) {
-      return false;
+      throw new UnauthorizedException("Missing 'authorization' header.");
     }
+
     const user = await this.supabaseService.getUserByAccessToken(accessToken);
     if (!user) {
-      throw new Error(`Invalid access token: ${accessToken}`);
+      throw new UnauthorizedException(`Invalid access token: ${accessToken}`);
     }
-    return !!user;
+
+    return true;
   }
 }
