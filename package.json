@@ -18,6 +18,7 @@
     "all": "pnpm --filter @lockerai/*",
     "api": "pnpm --filter @lockerai/api",
     "catalog": "pnpm --filter @lockerai/catalog",
+    "locker-dashboard": "pnpm --filter @lockerai/locker-dashboard",
     "website": "pnpm --filter @lockerai/website"
   },
   "devDependencies": {

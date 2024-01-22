@@ -161,6 +161,7 @@
   "eslint.workingDirectories": [
     "apps/api/",
     "apps/catalog/",
+    "apps/locker-dashboard/",
     "apps/website/",
     "packages/core/",
     "packages/design-token/",

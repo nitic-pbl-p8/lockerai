@@ -1,7 +1,7 @@
 import { match } from 'ts-pattern';
 
 type GetBaseUrlConfig = {
-  app: 'api' | 'api-ws' | 'website';
+  app: 'api' | 'api-ws' | 'locker-dashboard' | 'website';
 };
 
 const getApiBaseUrl = (): URL => {
@@ -45,6 +45,8 @@ const getWebsiteBaseUrl = (): URL => {
   return baseUrl;
 };
 
+const getLockerDashboardBaseUrl = (): URL => new URL(`http://localhost:${process.env['PORT'] || 3000}`);
+
 /**
  * Get the base URL of the app.
  * @param app The app from which to get the base URL.
@@ -59,6 +61,7 @@ export const getBaseUrl = ({ app }: GetBaseUrlConfig): URL => {
   const baseUrl = match<typeof app, URL>(app)
     .with('api', () => getApiBaseUrl())
     .with('api-ws', () => getApiWsBaseUrl())
+    .with('locker-dashboard', () => getLockerDashboardBaseUrl())
     .with('website', () => getWebsiteBaseUrl())
     .exhaustive();
 
