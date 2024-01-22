@@ -6,7 +6,7 @@ import type { LostItem } from '#website/common/model/lost-item';
 import type { User, UserPublicMeta } from '#website/common/model/user';
 
 type UserActionStatusListProps = Omit<ComponentPropsWithoutRef<'div'>, 'children' | 'className'> & {
-  user: User;
+  user?: User;
   reporter: UserPublicMeta;
   owner: UserPublicMeta | null;
   lostItem: LostItem;
@@ -29,7 +29,7 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
       <div className="flex flex-col gap-1">
         <p className="text-base font-bold text-sage-12">
           {reporter.name}
-          {reporter.id === user.id ? <span className="text-sage-11"> (You)</span> : null}
+          {reporter.id === user?.id ? <span className="text-sage-11"> (You)</span> : null}
         </p>
         <div className="flex items-center gap-1">
           <p className="text-base text-sage-11">{formatDate(lostItem.reportedAt, 'MMM. dd, yyyy HH:mm')} reported</p>
@@ -58,7 +58,7 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
         <div className="flex flex-col gap-1">
           <p className="text-base font-bold text-sage-12">
             {owner.name}
-            {owner.id === user.id ? <span className="text-sage-11"> (You)</span> : null}
+            {owner.id === user?.id ? <span className="text-sage-11"> (You)</span> : null}
           </p>
           <div className="flex items-center gap-1">
             <p className="text-base text-sage-11">{formatDate(lostItem.ownedAt, 'MMM. dd, yyyy HH:mm')} owned</p>
