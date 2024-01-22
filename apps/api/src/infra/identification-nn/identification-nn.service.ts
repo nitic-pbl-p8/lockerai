@@ -53,7 +53,12 @@ export class IdentificationNnService {
       }),
     );
 
-    const mostIdenticalKey = identities.reduce((prev, current) => (current[1][0] > prev[1][0] ? current : prev))[0];
+    const mostIdenticalIdentity = identities.reduce((prev, current) => (current[1][0] > prev[1][0] ? current : prev));
+    if (mostIdenticalIdentity[1][0] <= 0) {
+      return null;
+    }
+
+    const mostIdenticalKey = mostIdenticalIdentity[0];
 
     return mostIdenticalKey;
   }
