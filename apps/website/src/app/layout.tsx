@@ -1,3 +1,4 @@
+import { Sonner } from '@lockerai/core/component/sonner';
 import { ThemeProvider } from '@lockerai/core/component/theme-provider';
 import { firaCode, getFontVariables, notoSans } from '@lockerai/core/font/family';
 import { getBaseUrl } from '@lockerai/core/util/get-base-url';
@@ -45,6 +46,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
             <Header user={foundUser} />
             {children}
             <Footer />
+            <Sonner />
           </ThemeProvider>
         </UrqlProvider>
       </body>
