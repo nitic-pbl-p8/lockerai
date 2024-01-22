@@ -22,7 +22,7 @@ export const createAuthExchange = (getSession: () => Promise<[string, number | u
         }
 
         return appendHeaders(operation, {
-          Authorization: `Bearer ${accessToken}`,
+          authorization: `Bearer ${accessToken}`,
         });
       },
     };
