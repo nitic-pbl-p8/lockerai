@@ -21,7 +21,7 @@ export const ReportedDialog = ({ ...props }: ReportedDialogProps): ReactNode => 
         <p className="text-xl text-sage-11">
           Thank you for your good deed.
           <br />
-          Please go to the Locker and store the lost item in the drawer provided.
+          Please go to locker and store the lost item in the drawer provided.
         </p>
         <Button
           onClick={() => {
