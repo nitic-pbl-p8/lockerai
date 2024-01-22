@@ -13,7 +13,7 @@ import { z } from 'zod';
 import type { LostItem } from '#website/common/model/lost-item';
 import type { UserPublicMeta } from '#website/common/model/user';
 import { DatePicker } from '#website/module/search/search-lost-item-section/component/date-picker/date-picker.presenter';
-import { findSimilarLostItemUseCase } from '~website/src/use-case/find-similar-lost-item';
+import { findSimilarLostItemUseCase } from '#website/use-case/find-similar-lost-item';
 
 const formSchema = z.object({
   description: z

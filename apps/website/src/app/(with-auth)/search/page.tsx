@@ -1,8 +1,8 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { Metadata, NextPage } from 'next';
 import { cookies } from 'next/headers';
+import { SearchLostItemSection } from '#website/module/search/search-lost-item-section';
 import { findUserUseCase } from '#website/use-case/find-user';
-import { SearchLostItemSection } from '~website/src/module/search/search-lost-item-section';
 
 const SearchPage: NextPage = async () => {
   const cookieStore = cookies();
