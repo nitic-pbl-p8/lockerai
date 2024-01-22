@@ -22,6 +22,7 @@
     "gql:introspect": "graphql-codegen --config codegen-introspect.ts -r dotenv/config"
   },
   "dependencies": {
+    "@hookform/resolvers": "3.3.4",
     "@lockerai/core": "workspace:*",
     "@lockerai/design-token": "workspace:*",
     "@lockerai/tailwind": "workspace:*",
@@ -39,7 +40,8 @@
     "react-hook-form": "7.49.3",
     "schema-dts": "1.1.2",
     "sharp": "0.33.1",
-    "ts-pattern": "5.0.6"
+    "ts-pattern": "5.0.6",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
