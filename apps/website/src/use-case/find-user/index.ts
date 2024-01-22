@@ -15,7 +15,7 @@ export const findUserUseCase: FindUserUseCase = async (authId) => {
     },
   );
   if (!data || error) {
-    throw error || new Error('Failed to find user');
+    throw error || new Error('Failed to find user.');
   }
 
   if (!data.findUser) {
