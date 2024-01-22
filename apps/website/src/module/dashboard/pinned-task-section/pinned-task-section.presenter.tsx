@@ -1,11 +1,11 @@
 import { Image } from '@lockerai/core/component/image';
 import { type VariantProps, cn, tv } from '@lockerai/tailwind';
 import type { ComponentPropsWithoutRef } from 'react';
+import { UserActionStatusList } from '#website/common/component/user-action-status-list';
 import type { CurrentTargetLostItem } from '#website/common/model/lost-item';
 import type { User } from '#website/common/model/user';
-import { UserActionStatusList } from './component/user-action-status-list/user-action-status-list.presenter';
 
-const pinnedTaskSectionVariants = tv({
+const pinnedTaskSectionVariant = tv({
   variants: {
     'lost-and-found-state': {
       DELIVERING: null,
@@ -43,11 +43,11 @@ const pinnedTaskSectionVariants = tv({
 type PinnedTaskSectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'className'> & {
   user: User;
   currentTargetLostItem: CurrentTargetLostItem;
-  variant: VariantProps<typeof pinnedTaskSectionVariants>;
+  variant: VariantProps<typeof pinnedTaskSectionVariant>;
 };
 
 export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...props }: PinnedTaskSectionProps) => {
-  const { beacon, heading } = pinnedTaskSectionVariants({ ...variant });
+  const { beacon, heading } = pinnedTaskSectionVariant({ ...variant });
 
   return (
     <section className="flex flex-col items-center gap-10 px-16 py-12" {...props}>
