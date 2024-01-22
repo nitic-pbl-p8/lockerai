@@ -211,7 +211,7 @@ export class LangchainService {
 
     this.llm = new ChatOpenAI({
       openAIApiKey: process.env['OPENAI_API_KEY'],
-      modelName: 'gpt-3.5-turbo-1106',
+      modelName: 'gpt-4-1106-preview',
       maxTokens: 3000,
       temperature: 0.2,
     });
