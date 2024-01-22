@@ -99,7 +99,7 @@ export class LostItemRepository implements LostItemRepositoryInterface {
     const similarLostItems = await this.prismaService.$queryRaw<(LostItem & { similarity: number })[]>`
       SELECT id, title, description, image_urls AS "imageUrls", drawer_id AS "drawerId", reporter_id AS "reporterId", owner_id AS "ownerId", reported_at AS "reportedAt", delivered_at AS "deliveredAt", retrieved_at AS "retrievedAt", 1 - (embedded_description <=> ${embeddedDescription}::vector) AS similarity
       FROM public.lost_items
-      WHERE owner_id == NULL
+      WHERE owner_id IS NULL
       ORDER BY similarity
       LIMIT 10
     `;
