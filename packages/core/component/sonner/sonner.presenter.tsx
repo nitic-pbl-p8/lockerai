@@ -24,7 +24,7 @@ export const Sonner = ({ ...props }: SonnerProps) => {
         unstyled: true,
         classNames: {
           toast: cn(
-            'toast group flex gap-4 rounded-xl p-4',
+            'toast group flex w-full gap-4 rounded-xl p-4',
             'group-[.toaster]:border group-[.toaster]:shadow-lg',
             '[&_svg]:mt-8 [&_svg]:h-6 [&_svg]:w-6',
           ),
