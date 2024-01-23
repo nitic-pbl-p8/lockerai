@@ -22,32 +22,20 @@ export const GET = async (request: NextRequest) => {
     error,
   } = await supabase.auth.getUser();
   if (error) {
-    return NextResponse.redirect(requestUrl, {
-      status: error.status,
-      statusText: error.message,
-    });
+    return NextResponse.redirect(requestUrl);
   }
 
   if (!user) {
-    return NextResponse.redirect(`${requestUrl.origin}?asAuth=true`, {
-      status: 401,
-      statusText: 'Unauthorized',
-    });
+    return NextResponse.redirect(`${getBaseUrl({ app: 'website' })}?asAuth=true`);
   }
 
   const relatedUser = await relateFingerprintWithUserUseCase(user.id, hashedFingerprintId).catch(() => null);
   if (!relatedUser) {
-    return NextResponse.redirect(requestUrl, {
-      status: 500,
-      statusText: 'Internal Server Error',
-    });
+    return NextResponse.redirect(requestUrl);
   }
 
   if ((await clearLockerChallengeUseCase(lockerId).catch(() => null)) === null) {
-    return NextResponse.redirect(requestUrl, {
-      status: 500,
-      statusText: 'Internal Server Error',
-    });
+    return NextResponse.redirect(requestUrl);
   }
 
   return NextResponse.redirect(`${getBaseUrl({ app: 'website' })}`);

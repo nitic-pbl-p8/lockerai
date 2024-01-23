@@ -21,10 +21,7 @@ export const GET = async (request: NextRequest) => {
     error,
   } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
-    return NextResponse.redirect(requestUrl, {
-      status: error.status,
-      statusText: error.message,
-    });
+    return NextResponse.redirect(requestUrl);
   }
 
   if (user) {
