@@ -9,34 +9,43 @@ import type { ReactNode } from 'react';
 import { UrqlProvider } from '#locker-dashboard/infra/urql/ssr';
 import { Footer } from '#locker-dashboard/layout/global/footer';
 import { Header } from '#locker-dashboard/layout/global/header';
+import { LockerStatusProvider } from '#locker-dashboard/layout/global/locker-status-provider';
 import '#locker-dashboard/style/global.css';
 
 type RootLayoutProps = {
   children: ReactNode;
 };
 
-const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => (
-  <html lang="en" suppressHydrationWarning>
-    <head />
-    <body className={cn(getFontVariables([firaCode, notoSans]), 'relative bg-sage-1 font-sans')}>
-      <div
-        aria-hidden
-        className={cn(
-          'absolute -z-20 h-full w-full bg-grid-light-green-7/50 dark:bg-grid-dark-green-7/50',
-          'from-pure to-[70%] [-webkit-mask-image:linear-gradient(to_bottom,var(--tw-gradient-stops))] [mask-image:linear-gradient(to_bottom,var(--tw-gradient-stops))]',
-        )}
-      />
-      <UrqlProvider>
-        <ThemeProvider attribute="data-theme" enableSystem defaultTheme="system">
-          <Header />
-          {children}
-          <Footer />
-          <Sonner />
-        </ThemeProvider>
-      </UrqlProvider>
-    </body>
-  </html>
-);
+const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
+  const lockerId = process.env['LOCKER_ID'];
+  if (!lockerId) {
+    throw new Error('enviroment variable LOCKER_ID is not defined');
+  }
+
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={cn(getFontVariables([firaCode, notoSans]), 'relative bg-sage-1 font-sans')}>
+        <div
+          aria-hidden
+          className={cn(
+            'absolute -z-20 h-full w-full bg-grid-light-green-7/50 dark:bg-grid-dark-green-7/50',
+            'from-pure to-[70%] [-webkit-mask-image:linear-gradient(to_bottom,var(--tw-gradient-stops))] [mask-image:linear-gradient(to_bottom,var(--tw-gradient-stops))]',
+          )}
+        />
+        <UrqlProvider>
+          <ThemeProvider attribute="data-theme" enableSystem defaultTheme="system">
+            <Header />
+            {children}
+            <Footer />
+            <Sonner duration={10000} />
+            <LockerStatusProvider lockerId={lockerId} />
+          </ThemeProvider>
+        </UrqlProvider>
+      </body>
+    </html>
+  );
+};
 
 export default RootLayout;
 
