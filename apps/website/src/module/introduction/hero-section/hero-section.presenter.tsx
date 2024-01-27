@@ -3,20 +3,39 @@
 import { BrandLogo } from '@lockerai/core/component/brand-logo';
 import { LinkButton } from '@lockerai/core/component/link-button';
 import { motion } from 'framer-motion';
-import { type ComponentPropsWithoutRef, type ReactNode, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { type ComponentPropsWithoutRef, type ReactNode, useEffect, useState } from 'react';
+import { RelateResultDialog } from './component/relate-result-dialog';
 import { SignInDialog } from './component/sign-in-dialog';
 
 type HeroSectionProps = Omit<ComponentPropsWithoutRef<'section'>, 'children' | 'className'> & {
   asAuth?: boolean;
   redirectPathname?: string;
+  asRelateResult?: boolean;
 };
 
-export const HeroSection = ({ asAuth, redirectPathname, ...props }: HeroSectionProps): ReactNode => {
+export const HeroSection = ({ asAuth, redirectPathname, asRelateResult, ...props }: HeroSectionProps): ReactNode => {
   const [isLogoAnimated, setIsLogoAnimated] = useState(false);
+  const [isSignInDialogOpen, setIsSignInDialogOpen] = useState<boolean>();
+  const [isRelateResultDialogOpen, setIsRelateResultDialogOpen] = useState<boolean>();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsSignInDialogOpen(asAuth ?? false);
+    setIsRelateResultDialogOpen(asRelateResult ?? false);
+  }, [asAuth, asRelateResult]);
+
+  useEffect(() => {
+    if (isSignInDialogOpen === false && isRelateResultDialogOpen === false) {
+      router.push('/');
+    }
+  }, [isSignInDialogOpen, isRelateResultDialogOpen, router]);
 
   return (
     <section className="relative flex h-[100svh] items-center justify-center px-5 tablet:px-20" {...props}>
-      <SignInDialog defaultOpen={asAuth} redirectPathname={redirectPathname} />
+      <SignInDialog open={isSignInDialogOpen} onOpenChange={setIsSignInDialogOpen} redirectPathname={redirectPathname} />
+      <RelateResultDialog open={isRelateResultDialogOpen} onOpenChange={setIsRelateResultDialogOpen} defaultOpen={asRelateResult} />
       <div className="flex w-[940px] flex-col items-center gap-8 tablet:gap-16">
         <motion.hgroup layout data-chromatic="ignore" className="flex flex-col items-center gap-6">
           <motion.h1 layout className="w-fit">

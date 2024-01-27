@@ -11,7 +11,7 @@ export const GET = async (request: NextRequest) => {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
   if (!code) {
-    return NextResponse.redirect(requestUrl);
+    return NextResponse.redirect(getBaseUrl({ app: 'website' }));
   }
   const redirectPathname = requestUrl.searchParams.get('redirectPathname');
 
@@ -21,7 +21,7 @@ export const GET = async (request: NextRequest) => {
     error,
   } = await supabase.auth.exchangeCodeForSession(code);
   if (error) {
-    return NextResponse.redirect(requestUrl);
+    return NextResponse.redirect(getBaseUrl({ app: 'website' }));
   }
 
   if (user) {
