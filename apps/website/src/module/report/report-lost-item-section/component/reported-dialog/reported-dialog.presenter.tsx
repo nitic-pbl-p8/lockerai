@@ -4,11 +4,12 @@ import { Button } from '@lockerai/core/component/button';
 import { Dialog, DialogContent } from '@lockerai/core/component/dialog';
 import { MemoEmojiIcon } from '@lockerai/core/icon/memo-emoji-icon';
 import { useRouter } from 'next/navigation';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { type ComponentPropsWithoutRef, type ReactNode, useState } from 'react';
 
 type ReportedDialogProps = Omit<ComponentPropsWithoutRef<typeof Dialog>, 'children' | 'className'>;
 
 export const ReportedDialog = ({ ...props }: ReportedDialogProps): ReactNode => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   return (
@@ -24,12 +25,15 @@ export const ReportedDialog = ({ ...props }: ReportedDialogProps): ReactNode => 
           Please go to locker and store the lost item in the drawer provided.
         </p>
         <Button
-          onClick={() => {
-            router.push('/dashboard');
-          }}
+          disabled={loading}
           variant={{
+            color: loading ? 'sage' : 'green',
             border: true,
-            color: 'green',
+            loading,
+          }}
+          onClick={() => {
+            setLoading(true);
+            router.push('/dashboard');
           }}
         >
           Go Dashboard

@@ -4,11 +4,12 @@ import { Button } from '@lockerai/core/component/button';
 import { Dialog, DialogContent } from '@lockerai/core/component/dialog';
 import { PartyPopperEmojiIcon } from '@lockerai/core/icon/party-popper-emoji-icon';
 import { useRouter } from 'next/navigation';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { type ComponentPropsWithoutRef, type ReactNode, useState } from 'react';
 
 type ResultDialogProps = Omit<ComponentPropsWithoutRef<typeof Dialog>, 'children' | 'className'>;
 
 export const ResultDialog = ({ ...props }: ResultDialogProps): ReactNode => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   return (
@@ -24,12 +25,15 @@ export const ResultDialog = ({ ...props }: ResultDialogProps): ReactNode => {
           Please go to the nearest locker and retrieve the lost item.
         </p>
         <Button
-          onClick={() => {
-            router.push('/dashboard');
-          }}
+          disabled={loading}
           variant={{
+            color: loading ? 'sage' : 'green',
             border: true,
-            color: 'green',
+            loading,
+          }}
+          onClick={() => {
+            setLoading(true);
+            router.push('/dashboard');
           }}
         >
           Go Dashboard
