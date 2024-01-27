@@ -1,4 +1,3 @@
-import type { HfInference } from '@huggingface/inference';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { z } from 'zod';
 import { EnvService } from '#api/common/service/env/env.service';
@@ -6,9 +5,9 @@ import { EnvService } from '#api/common/service/env/env.service';
 @Injectable()
 export class LangchainService {
   // NOTE: LangChain is an ESModule, so CommonJS needs to reference it with import().
-  private readonly HuggingFaceInference = (async () => (await import('@langchain/community/llms/hf')).HuggingFaceInference)();
+  private readonly OpenAIEmbeddings = (async () => (await import('@langchain/openai')).OpenAIEmbeddings)();
 
-  private readonly huggingFaceInference = (async () => new (await import('@langchain/community/llms/hf')).HuggingFaceInference({ apiKey: ' ' }))();
+  private readonly openAIEmbeddings = (async () => new (await import('@langchain/openai')).OpenAIEmbeddings())();
 
   private readonly ChatOpenAI = (async () => (await import('@langchain/openai')).ChatOpenAI)();
 
@@ -22,7 +21,7 @@ export class LangchainService {
 
   private readonly OutputFixingParser = (async () => (await import('langchain/output_parsers')).OutputFixingParser)();
 
-  private embeddingModel: Awaited<typeof this.huggingFaceInference> | null = null;
+  private embeddingModel: Awaited<typeof this.openAIEmbeddings> | null = null;
 
   private llm: Awaited<typeof this.chatOpenAI> | null = null;
 
@@ -42,14 +41,9 @@ export class LangchainService {
       }
     }
 
-    const vector = (await this.embeddingModel.invoke(text)).replace(/[[\]]/g, '').split(',').map(Number) as unknown as Awaited<
-      ReturnType<HfInference['featureExtraction']>
-    >;
-    if (vector.some((v) => typeof v !== 'number')) {
-      throw new Error(`Unexpected vector type. Expected number[], but got ${typeof vector}`);
-    }
+    const vector = await this.embeddingModel.embedQuery(text);
 
-    return vector as number[];
+    return vector;
   }
 
   async imageCaptioning(imageUrls: string[]) {
@@ -176,42 +170,22 @@ export class LangchainService {
   }
 
   private async initEmbeddingModel() {
-    const HuggingFaceInference = await this.HuggingFaceInference;
+    const OpenAIEmbeddings = await this.OpenAIEmbeddings;
 
-    this.embeddingModel = new HuggingFaceInference({
-      apiKey: this.envService.HuggingfacehubApiToken,
-      model: 'obrizum/all-MiniLM-L6-v2',
+    this.embeddingModel = new OpenAIEmbeddings({
+      openAIApiKey: this.envService.OpenaiApiKey,
+      modelName: 'text-embedding-3-small',
     });
 
-    this.embeddingModel['_call'] = await this.createFeatureExtractionCaller(this.embeddingModel);
-
     return this.embeddingModel;
-  }
-
-  private async createFeatureExtractionCaller(huggingFaceInference: Awaited<typeof this.huggingFaceInference>) {
-    const caller: Awaited<typeof this.huggingFaceInference>['_call'] = async (prompt, options) => {
-      const { HfInference: LangChainHfInference } = await (await this.HuggingFaceInference).imports();
-      const hf = huggingFaceInference.endpointUrl
-        ? new LangChainHfInference(huggingFaceInference.apiKey).endpoint(huggingFaceInference.endpointUrl)
-        : new LangChainHfInference(huggingFaceInference.apiKey);
-
-      const res = await huggingFaceInference.caller.callWithOptions({ signal: options.signal }, hf.featureExtraction.bind(hf), {
-        model: huggingFaceInference.model,
-        inputs: prompt,
-      });
-
-      return JSON.stringify(res);
-    };
-
-    return caller;
   }
 
   private async initLlm() {
     const ChatOpenAI = await this.ChatOpenAI;
 
     this.llm = new ChatOpenAI({
-      openAIApiKey: process.env['OPENAI_API_KEY'],
-      modelName: 'gpt-4-1106-preview',
+      openAIApiKey: this.envService.OpenaiApiKey,
+      modelName: 'gpt-4-turbo-preview',
       maxTokens: 3000,
       temperature: 0.2,
     });
@@ -223,7 +197,7 @@ export class LangchainService {
     const ChatOpenAI = await this.ChatOpenAI;
 
     this.lvlm = new ChatOpenAI({
-      openAIApiKey: process.env['OPENAI_API_KEY'],
+      openAIApiKey: this.envService.OpenaiApiKey,
       modelName: 'gpt-4-vision-preview',
       maxTokens: 1000,
       temperature: 0.2,
