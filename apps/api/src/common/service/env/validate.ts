@@ -8,7 +8,7 @@ export class EnvValidator {
 
   DATABASE_SSL_CERT!: string;
 
-  @IsUrl({ protocols: ['postgresql'], require_tld: process.env['NODE_ENV'] === 'production' })
+  @IsUrl({ protocols: ['postgres', 'postgresql'], require_tld: process.env['NODE_ENV'] === 'production' })
   DATABASE_URL!: string;
 
   HUGGINGFACEHUB_API_TOKEN!: string;
