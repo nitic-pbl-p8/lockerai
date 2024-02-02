@@ -57,30 +57,38 @@ export const SearchLostItemForm = ({ onSimilarLostItemFound, ...props }: SearchL
 
   return (
     <form
-      onSubmit={handleSubmit(async (formData) => {
-        const data = await findSimilarLostItemUseCase(formData.description, formData.lostAt).catch((error) => {
-          toast.error('Failed to search similar lost item.', {
-            description: error.message.replace('[GraphQL] ', ''),
+      onSubmit={handleSubmit(
+        async (formData) => {
+          const data = await findSimilarLostItemUseCase(formData.description, formData.lostAt).catch((error) => {
+            toast.error('Failed to search similar lost item.', {
+              description: error.message.replace('[GraphQL] ', ''),
+              icon: <ErrorIcon />,
+            });
+
+            return new Error(error);
+          });
+          if (data instanceof Error) {
+            return;
+          }
+          if (!data) {
+            toast.warning('No similar lost item found.', {
+              description: 'Description may be too specific or too abstract. Please try again with different description or date of lost.',
+              icon: <ErrorIcon />,
+            });
+
+            return;
+          }
+
+          onSimilarLostItemFound?.(data.lostItem, data.reporter);
+        },
+        () => {
+          toast.error('Failed to validate form inputs.', {
+            description: 'Some inputs are invalid. Please check and try again.',
             icon: <ErrorIcon />,
           });
-
-          return new Error(error);
-        });
-        if (data instanceof Error) {
-          return;
-        }
-        if (!data) {
-          toast.warning('No similar lost item found.', {
-            description: 'Description may be too specific or too abstract. Please try again with different description or date of lost.',
-            icon: <ErrorIcon />,
-          });
-
-          return;
-        }
-
-        onSimilarLostItemFound?.(data.lostItem, data.reporter);
-      })}
-      className="flex flex-col gap-6"
+        },
+      )}
+      className="flex w-full flex-col gap-6 tablet:w-auto"
       {...props}
     >
       <span className="ml-auto">
@@ -100,20 +108,20 @@ export const SearchLostItemForm = ({ onSimilarLostItemFound, ...props }: SearchL
       </span>
       <div
         className={cn(
-          'flex w-[60vw] max-w-[910px] flex-col overflow-hidden rounded-xl border border-green-7 bg-sage-3',
+          'flex w-full max-w-[910px] flex-col overflow-hidden rounded-xl border border-green-7 bg-sage-3 tablet:w-[60vw]',
           errors.description && 'border-red-7',
         )}
       >
         <label
           htmlFor={textAreaId}
-          className="flex w-full cursor-pointer items-center justify-between gap-8 border-b border-sage-7 bg-sage-1 px-5 py-3"
+          className="flex w-full cursor-pointer items-center justify-between gap-8 border-b border-sage-7 bg-sage-1 p-3 tablet:px-5"
         >
-          <span className="text-lg font-bold text-sage-11">Description for the lost item</span>
-          {errors.description && <span className="text-base text-red-11">{errors.description.message}</span>}
+          <span className="text-base font-bold text-sage-11 tablet:text-lg">Description for the lost item</span>
+          {errors.description && <span className="text-sm text-red-11 tablet:text-base">{errors.description.message}</span>}
         </label>
         <textarea
           id={textAreaId}
-          className="h-[320px] resize-none bg-transparent px-5 py-4 font-code text-sage-12 focus:outline-none"
+          className="h-[280px] resize-none bg-transparent p-3 font-code text-sm text-sage-12 focus:outline-none tablet:h-[320px] tablet:px-5 tablet:text-base"
           {...register('description')}
         />
       </div>
