@@ -94,7 +94,7 @@ export const Button = forwardRef<ElementRef<'button'>, Omit<ButtonProps, 'ref'>>
       {...props}
     >
       <span className={cn('flex items-center gap-2 text-center text-sm font-bold tablet:text-base', content({ loading: variant?.loading }))}>
-        {Icon && <Icon className="h-5 w-5" />}
+        {Icon && <Icon className="h-4 w-4 tablet:h-5 tablet:w-5" />}
         {children}
       </span>
       {variant?.loading && (
