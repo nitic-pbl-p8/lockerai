@@ -15,11 +15,13 @@ export const ResultDialog = ({ ...props }: ResultDialogProps): ReactNode => {
   return (
     <Dialog {...props}>
       <DialogContent variant={{ color: 'green' }}>
-        <p className="mt-8 flex items-center gap-3 text-4xl font-bold text-sage-12">
-          You are <span className="text-green-11">authorized</span> as owner!
+        <p className="mt-8 flex flex-col-reverse items-center gap-3 tablet:flex-row">
+          <span className="text-center text-3xl font-bold text-sage-12 tablet:text-4xl">
+            You are <span className="text-green-11">authorized</span> as owner!
+          </span>
           <PartyPopperEmojiIcon className="h-10 w-auto" />
         </p>
-        <p className="text-xl text-sage-11">
+        <p className="text-lg text-sage-11 tablet:text-xl">
           You are now authorized as the owner of this lost item.
           <br />
           Please go to the nearest locker and retrieve the lost item.

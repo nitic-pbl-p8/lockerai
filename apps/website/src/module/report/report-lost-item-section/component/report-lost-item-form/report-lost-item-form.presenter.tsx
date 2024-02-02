@@ -52,6 +52,8 @@ export const ReportLostItemForm = ({ reportLostItem, ...props }: ReportLostItemF
           icon: <ErrorIcon />,
         });
 
+        setLoading(false);
+
         return null;
       });
       if (res === null) {
@@ -81,13 +83,13 @@ export const ReportLostItemForm = ({ reportLostItem, ...props }: ReportLostItemF
         report
         <SubmitIcon className={cn('h-4 w-4', disabled ? 'fill-sage-11' : 'fill-green-11')} />
       </Button>
-      <div className="relative h-[400px] w-full rounded-2xl border-2 border-dotted border-green-7">
+      <div className="relative h-72 w-full rounded-2xl border-2 border-dotted border-green-7 p-5 tablet:h-[400px]">
         <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-4">
-          <AddingImageIcon className="h-[200px] w-[200px] fill-green-7" />
-          <span className="text-2xl text-sage-11">Drag and drop or select images of the lost item.</span>
+          <AddingImageIcon className="h-28 w-28 fill-green-7 tablet:h-[200px] tablet:w-[200px]" />
+          <span className="text-base text-sage-11 tablet:text-2xl">Drag and drop or select images of the lost item.</span>
           <input type="file" accept="image/*" multiple onChange={onChange} className="absolute left-0 top-0 h-full w-full cursor-pointer opacity-0" />
         </label>
-        <div className="absolute left-14 top-7 flex max-w-full flex-wrap items-center gap-6">
+        <div className="absolute left-4 top-4 flex max-w-full flex-wrap items-center gap-4 tablet:left-14 tablet:top-7 tablet:gap-6">
           <AnimatePresence>
             {imageFiles.map((imageFile) => (
               <motion.div
@@ -106,7 +108,7 @@ export const ReportLostItemForm = ({ reportLostItem, ...props }: ReportLostItemF
                   skeleton={{
                     className: 'rounded-2xl',
                   }}
-                  className="h-[160px] w-[240px] object-cover"
+                  className="h-[80px] w-[120px] object-cover tablet:h-[160px] tablet:w-[240px]"
                 />
                 <span className="absolute right-2 top-2">
                   <Button

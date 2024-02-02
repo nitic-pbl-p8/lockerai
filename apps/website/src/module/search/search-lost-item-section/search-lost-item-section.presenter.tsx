@@ -24,7 +24,7 @@ export const SearchLostItemSection = ({ user, ...props }: SearchLostItemSectionP
   }, [similarLostItem, similarLostItemReporter]);
 
   return (
-    <section className="flex flex-col items-center gap-16 px-32 py-16" {...props}>
+    <section className="flex flex-col items-center gap-16 px-6 py-10 tablet:px-32 tablet:py-16" {...props}>
       <SearchLostItemForm
         onSimilarLostItemFound={(foundSimilarLostItem, foundSimilarLostItemReporter) => {
           setSimilarLostItem(foundSimilarLostItem);

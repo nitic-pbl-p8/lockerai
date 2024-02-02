@@ -15,11 +15,11 @@ export const ReportedDialog = ({ ...props }: ReportedDialogProps): ReactNode => 
   return (
     <Dialog {...props}>
       <DialogContent>
-        <p className="flex items-center gap-3 text-4xl font-bold text-sage-12">
+        <p className="flex flex-col-reverse items-center gap-3 text-center text-3xl font-bold text-sage-12 tablet:flex-row tablet:text-left tablet:text-4xl">
           Lost item was reported!
           <MemoEmojiIcon className="h-10 w-auto" />
         </p>
-        <p className="text-xl text-sage-11">
+        <p className="text-lg text-sage-11 tablet:text-xl">
           Thank you for your good deed.
           <br />
           Please go to locker and store the lost item in the drawer provided.

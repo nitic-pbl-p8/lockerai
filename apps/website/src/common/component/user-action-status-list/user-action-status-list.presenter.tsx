@@ -31,12 +31,12 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
           {reporter.name}
           {reporter.id === user?.id ? <span className="text-sage-11"> (You)</span> : null}
         </p>
-        <div className="flex items-center gap-1">
-          <p className="text-base text-sage-11">{formatDate(lostItem.reportedAt, 'MMM. dd, yyyy HH:mm')} reported</p>
+        <div className="flex flex-col gap-1 tablet:flex-row tablet:items-center">
+          <p className="text-sm text-sage-11 tablet:text-base">{formatDate(lostItem.reportedAt, 'MMM. dd, yyyy HH:mm')} reported</p>
           {lostItem.deliveredAt && (
             <>
-              <DotIcon className="h-4 w-4 fill-sage-11" />
-              <p className="text-base text-sage-11">{formatDate(lostItem.deliveredAt, 'MMM. dd, yyyy HH:mm')} delivered</p>
+              <DotIcon className="hidden h-4 w-4 fill-sage-11 tablet:inline" />
+              <p className="text-sm text-sage-11 tablet:text-base">{formatDate(lostItem.deliveredAt, 'MMM. dd, yyyy HH:mm')} delivered</p>
             </>
           )}
         </div>
@@ -60,12 +60,12 @@ export const UserActionStatusList = ({ user, reporter, owner, lostItem, ...props
             {owner.name}
             {owner.id === user?.id ? <span className="text-sage-11"> (You)</span> : null}
           </p>
-          <div className="flex items-center gap-1">
-            <p className="text-base text-sage-11">{formatDate(lostItem.ownedAt, 'MMM. dd, yyyy HH:mm')} owned</p>
+          <div className="flex flex-col gap-1 tablet:flex-row tablet:items-center">
+            <p className="text-sm text-sage-11 tablet:text-base">{formatDate(lostItem.ownedAt, 'MMM. dd, yyyy HH:mm')} owned</p>
             {lostItem.retrievedAt && (
               <>
-                <DotIcon className="h-4 w-4 fill-sage-11" />
-                <p className="text-base text-sage-11">{formatDate(lostItem.retrievedAt, 'MMM. dd, yyyy HH:mm')} retrieved</p>
+                <DotIcon className="hidden h-4 w-4 fill-sage-11 tablet:inline" />
+                <p className="text-sm text-sage-11 tablet:text-base">{formatDate(lostItem.retrievedAt, 'MMM. dd, yyyy HH:mm')} retrieved</p>
               </>
             )}
           </div>

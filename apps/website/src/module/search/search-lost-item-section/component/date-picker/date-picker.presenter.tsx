@@ -29,12 +29,12 @@ export const DatePicker = ({ date, setDate, error, input, ...props }: DatePicker
           )}
           {...props}
         >
-          <span className="flex w-full items-center justify-between gap-8 border-b border-sage-7 bg-sage-1 px-5 py-3">
-            <span className="text-lg font-bold text-sage-11">Date of lost</span>
-            {error && <span className="text-base text-red-11">{error}</span>}
+          <span className="flex w-full items-center justify-between gap-8 border-b border-sage-7 bg-sage-1 p-3 tablet:px-5">
+            <span className="text-base font-bold text-sage-11 tablet:text-lg">Date of lost</span>
+            {error && <span className="text-sm text-red-11 tablet:text-base">{error}</span>}
           </span>
-          <span className="flex items-center justify-between gap-10 px-5 py-3">
-            <span className="font-code">
+          <span className="flex items-center justify-between gap-10 p-3 tablet:px-5">
+            <span className="font-code text-sm tablet:text-base">
               {date ? <span className="text-sage-12">{formatDate(date, 'MMMM dd, yyyy')}</span> : <span className="text-sage-11">Pick a date</span>}
             </span>
             <CalendarIcon className="h-4 w-4 fill-sage-11" />

@@ -25,11 +25,11 @@ export const ConfirmDialog = ({ user, lostItem, reporter, onOwned, onOpenChange,
       <DialogContent>
         <div className="flex flex-col items-center gap-14">
           <div className="flex flex-col items-center gap-6">
-            <p className="flex items-center gap-3 text-4xl font-bold text-sage-12">
-              Similar lost item found!
+            <p className="flex flex-col-reverse items-center gap-3 tablet:flex-row">
+              <span className="text-center text-3xl font-bold text-sage-12 tablet:text-4xl">Similar lost item found!</span>
               <MagnifyingGlassEmojiIcon className="h-10 w-auto" />
             </p>
-            <div className="flex w-[80vw] items-center gap-10">
+            <div className="flex w-[80vw] flex-col items-center gap-6 tablet:flex-row tablet:gap-10">
               <figure className="shrink-0">
                 <Image
                   src={lostItem.imageUrls[0]!}
@@ -45,14 +45,14 @@ export const ConfirmDialog = ({ user, lostItem, reporter, onOwned, onOpenChange,
               </figure>
               <div className="flex w-fit shrink flex-col gap-5">
                 <div className="flex flex-col gap-2">
-                  <p className="text-2xl font-bold text-sage-12">{lostItem.title}</p>
-                  <p className="text-lg text-sage-11">{lostItem.description}</p>
+                  <p className="text-xl font-bold text-sage-12 tablet:text-2xl">{lostItem.title}</p>
+                  <p className="text-base text-sage-11 tablet:text-lg">{lostItem.description}</p>
                 </div>
                 <UserActionStatusList reporter={reporter} owner={null} lostItem={lostItem} />
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-48">
+          <div className="flex w-full items-center justify-between tablet:w-auto tablet:justify-start tablet:gap-48">
             <Button
               disabled={loading}
               variant={{
