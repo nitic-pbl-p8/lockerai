@@ -29,6 +29,9 @@ export class UserObject implements Omit<User, 'hashedFingerprintId' | 'isOnTheWa
   @IsUrl()
   avatarUrl!: string;
 
+  @Field(() => Boolean, { nullable: false })
+  isDiscloseAsOwner!: boolean;
+
   @Field(() => Date, { nullable: false })
   createdAt!: Date;
 }
