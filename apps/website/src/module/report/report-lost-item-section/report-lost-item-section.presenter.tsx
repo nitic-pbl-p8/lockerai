@@ -21,7 +21,7 @@ export const ReportLostItemSection = ({ user, ...props }: ReportLostItemSectionP
   }, [reportedLostItem]);
 
   return (
-    <section className="flex flex-col gap-16 p-10 tablet:px-32 tablet:py-16" {...props}>
+    <section className="flex flex-col gap-16 px-6 py-10 tablet:px-32 tablet:py-16" {...props}>
       <hgroup className="flex flex-col gap-2">
         <h1 className="text-4xl font-bold text-sage-12 tablet:text-6xl">Report</h1>
         <p className="text-lg text-sage-11 tablet:text-2xl">Take photos of the lost item and report to it.</p>

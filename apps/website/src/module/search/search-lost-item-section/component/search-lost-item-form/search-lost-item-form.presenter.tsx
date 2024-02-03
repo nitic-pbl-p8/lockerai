@@ -88,17 +88,17 @@ export const SearchLostItemForm = ({ onSimilarLostItemFound, ...props }: SearchL
           });
         },
       )}
-      className="flex w-full flex-col gap-6 tablet:w-auto"
+      className="flex w-full flex-col-reverse gap-6 tablet:w-auto tablet:flex-col"
       {...props}
     >
-      <span className="ml-auto">
+      <span className="w-full tablet:ml-auto tablet:w-auto">
         <Button
           type="submit"
           disabled={isSubmitting}
           variant={{
             color: isSubmitting ? 'sage' : 'green',
             border: true,
-            width: 'fit',
+            width: 'full',
             loading: isSubmitting,
           }}
         >
@@ -106,44 +106,46 @@ export const SearchLostItemForm = ({ onSimilarLostItemFound, ...props }: SearchL
           <SearchIcon className="h-5 w-5 fill-green-11" />
         </Button>
       </span>
-      <div
-        className={cn(
-          'flex w-full max-w-[910px] flex-col overflow-hidden rounded-xl border border-green-7 bg-sage-3 tablet:w-[60vw]',
-          errors.description && 'border-red-7',
-        )}
-      >
-        <label
-          htmlFor={textAreaId}
-          className="flex w-full cursor-pointer items-center justify-between gap-8 border-b border-sage-7 bg-sage-1 p-3 tablet:px-5"
+      <div className="flex w-full flex-col gap-6 tablet:w-auto">
+        <div
+          className={cn(
+            'flex w-full max-w-[910px] flex-col overflow-hidden rounded-xl border border-green-7 bg-sage-3 tablet:w-[60vw]',
+            errors.description && 'border-red-7',
+          )}
         >
-          <span className="text-base font-bold text-sage-11 tablet:text-lg">Description for the lost item</span>
-          {errors.description && <span className="text-sm text-red-11 tablet:text-base">{errors.description.message}</span>}
-        </label>
-        <textarea
-          id={textAreaId}
-          className="h-[280px] resize-none bg-transparent p-3 font-code text-sm text-sage-12 focus:outline-none tablet:h-[320px] tablet:px-5 tablet:text-base"
-          {...register('description')}
+          <label
+            htmlFor={textAreaId}
+            className="flex w-full cursor-pointer items-center justify-between gap-8 border-b border-sage-7 bg-sage-1 p-3 tablet:px-5"
+          >
+            <span className="text-base font-bold text-sage-11 tablet:text-lg">Description for the lost item</span>
+            {errors.description && <span className="text-sm text-red-11 tablet:text-base">{errors.description.message}</span>}
+          </label>
+          <textarea
+            id={textAreaId}
+            className="h-[280px] resize-none bg-transparent p-3 font-code text-sm text-sage-12 focus:outline-none tablet:h-[320px] tablet:px-5 tablet:text-base"
+            {...register('description')}
+          />
+        </div>
+        <Controller
+          name="lostAt"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <DatePicker
+              date={lostAt}
+              setDate={setLostAt}
+              error={errors.lostAt?.message}
+              input={{
+                ...field,
+                value: lostAt ? formatDate(lostAt, 'yyyy-MM-dd') : '',
+                onChange: (event) => {
+                  setLostAt(new Date(event.target.value));
+                },
+              }}
+            />
+          )}
         />
       </div>
-      <Controller
-        name="lostAt"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => (
-          <DatePicker
-            date={lostAt}
-            setDate={setLostAt}
-            error={errors.lostAt?.message}
-            input={{
-              ...field,
-              value: lostAt ? formatDate(lostAt, 'yyyy-MM-dd') : '',
-              onChange: (event) => {
-                setLostAt(new Date(event.target.value));
-              },
-            }}
-          />
-        )}
-      />
     </form>
   );
 };
