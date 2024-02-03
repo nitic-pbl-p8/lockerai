@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@lockerai/core/componen
 import { CalendarIcon } from '@lockerai/core/icon/calendar-icon';
 import { formatDate } from '@lockerai/core/util/format-date';
 import { cn } from '@lockerai/tailwind';
-import { type ComponentPropsWithoutRef, type Dispatch, type SetStateAction, useId } from 'react';
+import { type ComponentPropsWithoutRef, type Dispatch, type SetStateAction, useEffect, useId, useState } from 'react';
 
 type DatePickerProps = Omit<ComponentPropsWithoutRef<'label'>, 'children' | 'className' | 'htmlFor'> & {
   date: Date | undefined;
@@ -15,10 +15,15 @@ type DatePickerProps = Omit<ComponentPropsWithoutRef<'label'>, 'children' | 'cla
 };
 
 export const DatePicker = ({ date, setDate, error, input, ...props }: DatePickerProps) => {
+  const [open, setOpen] = useState(false);
   const dateInputId = useId();
 
+  useEffect(() => {
+    setOpen(false);
+  }, [date]);
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <input id={dateInputId} type="date" className="hidden" {...input} />
       <PopoverTrigger asChild>
         <label
