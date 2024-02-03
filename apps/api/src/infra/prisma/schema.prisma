@@ -24,6 +24,8 @@ model User {
   lostAndFoundState   LostAndFoundState @default(NONE) @map("lost_and_found_state")
   avatarUrl           String            @map("avatar_url")
 
+  isDiscloseAsOwner Boolean @default(true) @map("is_disclose_as_owner")
+
   reportedLostItems LostItem[] @relation(name: "reporter-and-reported-lost-items")
   ownedLostItems    LostItem[] @relation(name: "owner-and-owned-lost-items")
 
