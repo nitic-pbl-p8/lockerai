@@ -29,6 +29,7 @@ export const relateFingerprintWithUserUseCase: RelateFingerprintWithUserUseCase 
     email: data.relateFingerprintWithUser.email,
     lostAndFoundState: data.relateFingerprintWithUser.lostAndFoundState,
     avatarUrl: data.relateFingerprintWithUser.avatarUrl,
+    isDiscloseAsOwner: data.relateFingerprintWithUser.isDiscloseAsOwner,
     createdAt: data.relateFingerprintWithUser.createdAt,
   };
 };

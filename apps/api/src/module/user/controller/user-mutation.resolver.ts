@@ -33,6 +33,20 @@ export class UserMutation {
   }
 
   @Mutation(() => UserObject)
+  async updateUserDisclosure(
+    @Args('where', { type: () => UserWhereAuthIdInput }, ValidationPipe)
+    where: UserWhereAuthIdInput,
+    @Args('isDiscloseAsOwner', { type: () => Boolean }, ValidationPipe)
+    isDiscloseAsOwner: boolean,
+  ): Promise<User> {
+    this.logger.log(`${this.updateUserDisclosure.name} called`);
+
+    const updatedUser = await this.userUseCase.updateUserDisclosure(where.authId, isDiscloseAsOwner);
+
+    return updatedUser;
+  }
+
+  @Mutation(() => UserObject)
   async relateFingerprintWithUser(
     @Args('where', { type: () => UserWhereAuthIdInput }, ValidationPipe)
     where: UserWhereAuthIdInput,

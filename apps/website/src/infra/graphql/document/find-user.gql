@@ -5,6 +5,7 @@ query FindUser($where: UserWhereAuthIdInput!) {
     createdAt
     email
     id
+    isDiscloseAsOwner
     lostAndFoundState
     name
   }

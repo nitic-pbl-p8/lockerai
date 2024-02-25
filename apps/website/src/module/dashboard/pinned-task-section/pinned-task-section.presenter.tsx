@@ -50,9 +50,9 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
   const { beacon, heading } = pinnedTaskSectionVariant({ ...variant });
 
   return (
-    <section className="flex flex-col items-center gap-10 px-6 py-10 tablet:px-16 tablet:py-12" {...props}>
-      <div className="flex flex-col items-center gap-3 tablet:gap-5">
-        <h1 className="flex w-fit flex-col items-center gap-6 tablet:flex-row">
+    <section className="flex flex-col items-center gap-10 px-6 py-10 laptop:px-16 laptop:py-12" {...props}>
+      <div className="flex flex-col items-center gap-3 laptop:gap-5">
+        <h1 className="flex w-fit flex-col items-center gap-6 laptop:flex-row">
           <span className={cn('relative h-6 w-6')}>
             <span
               className={cn(
@@ -62,16 +62,16 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
               )}
             />
           </span>
-          <span className="text-center text-4xl font-bold text-sage-12 tablet:text-5xl">
+          <span className="text-center text-4xl font-bold text-sage-12 laptop:text-5xl">
             You are currently <span className={heading()}>{user.lostAndFoundState.toLowerCase()}</span>
           </span>
         </h1>
-        <p className="max-w-[820px] text-xl text-sage-11 tablet:text-2xl">
+        <p className="max-w-[820px] text-xl text-sage-11 laptop:text-2xl">
           You are in the process of {user.lostAndFoundState.toLowerCase()} a lost item. Please go to the nearest locker and{' '}
           {user.lostAndFoundState === 'DELIVERING' ? 'put in' : 'take out'} the lost item.
         </p>
       </div>
-      <div className="flex flex-col items-center gap-10 tablet:flex-row">
+      <div className="flex flex-col items-center gap-10 laptop:flex-row">
         <figure className="shrink-0">
           <Image
             src={currentTargetLostItem.lostItem.imageUrls[0]!}
@@ -86,8 +86,8 @@ export const PinnedTaskSection = ({ user, currentTargetLostItem, variant, ...pro
         </figure>
         <div className="flex w-fit shrink flex-col gap-7">
           <hgroup className="flex flex-col gap-2">
-            <h2 className="text-2xl font-bold text-sage-12 tablet:text-3xl">{currentTargetLostItem.lostItem.title}</h2>
-            <p className="text-base text-sage-11 tablet:text-lg">{currentTargetLostItem.lostItem.description}</p>
+            <h2 className="text-2xl font-bold text-sage-12 laptop:text-3xl">{currentTargetLostItem.lostItem.title}</h2>
+            <p className="text-base text-sage-11 laptop:text-lg">{currentTargetLostItem.lostItem.description}</p>
           </hgroup>
           <UserActionStatusList
             user={user}

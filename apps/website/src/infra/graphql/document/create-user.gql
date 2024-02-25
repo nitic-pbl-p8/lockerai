@@ -5,6 +5,7 @@ mutation CreateUser($user: UserCreateInput!) {
     createdAt
     email
     id
+    isDiscloseAsOwner
     lostAndFoundState
     name
   }

@@ -29,6 +29,7 @@ export const findUserUseCase: FindUserUseCase = async (authId) => {
     email: data.findUser.email,
     lostAndFoundState: data.findUser.lostAndFoundState,
     avatarUrl: data.findUser.avatarUrl,
+    isDiscloseAsOwner: data.findUser.isDiscloseAsOwner,
     createdAt: data.findUser.createdAt,
   };
 };

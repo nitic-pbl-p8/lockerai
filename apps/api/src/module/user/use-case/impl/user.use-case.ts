@@ -33,6 +33,15 @@ export class UserUseCase implements UserUseCaseInterface {
     return createdUser;
   }
 
+  async updateUserDisclosure(
+    authId: Parameters<UserUseCaseInterface['updateUserDisclosure']>[0],
+    isDiscloseAsOwner: Parameters<UserUseCaseInterface['updateUserDisclosure']>[1],
+  ): Promise<User> {
+    const updatedUser = await this.userRepository.updateByAuthId(authId, { isDiscloseAsOwner });
+
+    return updatedUser;
+  }
+
   async relateFingerprintWithUser(
     authId: Parameters<UserUseCaseInterface['relateFingerprintWithUser']>[0],
     hashedFingerprintId: Parameters<UserUseCaseInterface['relateFingerprintWithUser']>[1],

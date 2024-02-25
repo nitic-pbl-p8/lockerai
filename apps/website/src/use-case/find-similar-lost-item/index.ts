@@ -50,6 +50,7 @@ export const findSimilarLostItemUseCase: FindSimilarLostItemUseCase = async (des
     id: data.findSimilarLostItem.reporter.id,
     name: data.findSimilarLostItem.reporter.name,
     avatarUrl: data.findSimilarLostItem.reporter.avatarUrl,
+    isDiscloseAsOwner: data.findSimilarLostItem.reporter.isDiscloseAsOwner,
   };
 
   return {

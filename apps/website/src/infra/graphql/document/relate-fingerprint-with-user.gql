@@ -5,6 +5,7 @@ mutation RelateFingerprintWithUser($hashedFingerprintId: String!, $where: UserWh
     createdAt
     email
     id
+    isDiscloseAsOwner
     lostAndFoundState
     name
   }
